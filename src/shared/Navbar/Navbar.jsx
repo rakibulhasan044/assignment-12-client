@@ -1,7 +1,10 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import useAuth from "../../hooks/useAuth";
+import Dropdown from "./Dropdown";
 
 const Navbar = () => {
+  const { user, logOut } = useAuth();
   const links = (
     <>
       <li>
@@ -13,9 +16,7 @@ const Navbar = () => {
       <li>
         <NavLink to="upcoming-meals">Upcoming Meals</NavLink>
       </li>
-      <li>
-        <NavLink to="login">Login</NavLink>
-      </li>
+
       <li>
         <NavLink to="register">Register</NavLink>
       </li>
@@ -55,7 +56,15 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1 flex gap-5">{links}</ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Join Us</a>
+        {user ? (
+          <>
+            <Dropdown user={user} logOut={logOut} />
+          </>
+        ) : (
+          <>
+            <Link to="login">Join Us</Link>
+          </>
+        )}
       </div>
     </div>
   );

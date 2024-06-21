@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { FaEye } from "react-icons/fa6";
 import { FaEyeSlash } from "react-icons/fa";
@@ -6,27 +5,43 @@ import { FaGoogle } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import Lottie from "lottie-react";
 import login from "../../assets/animation/login.json";
-// import Swal from "sweetalert2";
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import AOS from "aos";
+import "aos/dist/aos.css";
+import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const Login = () => {
+  const [show, setShow] = useState(false);
+  const { user, googleSignIn } = useAuth();
 
-    const [show, setShow] = useState(false)
+  const handleLogin = async (e) => {
 
-    const handleLogin = async e => {
+  };
 
+  const handleGoogleLogin = async () => {
+    console.log("google click");
+    try {
+      const result = await googleSignIn();
+      console.log(result.user);
+      // navigate(location?.state ? location.state : "/");
+      Swal.fire({
+        title: "Successfully Login!",
+        text: "Welcome!",
+        icon: "success",
+      });
+    } catch (err) {
+      console.log(err.message);
     }
+  };
 
-    const handleGoogleLogin = () => {
- console.log('google click');
-    }
-
-    useEffect(() => {
-        AOS.init();
-      }, []);
-    return (
-        <div className="relative flex flex-col md:flex-row items-center py-10 md:py-20 max-h-screen w-full" data-aos="fade-down">
+  useEffect(() => {
+    AOS.init();
+  }, []);
+  return (
+    <div
+      className="relative flex flex-col md:flex-row items-center py-10 md:py-20 max-h-screen w-full"
+      data-aos="fade-down"
+    >
       <div className="w-full md:w-2/5 h-full md:h-auto absolute md:relative top-0 left-0 md:top-auto md:left-auto">
         <Lottie
           animationData={login}
@@ -89,8 +104,8 @@ const Login = () => {
               aria-label="Login with Google"
             >
               <div className="flex gap-3 border p-2 rounded border-orange-400">
-              <FaGoogle size={30} />
-              <p className=" text-2xl font-semibold">GOOGLE</p>
+                <FaGoogle size={30} />
+                <p className=" text-2xl font-semibold">GOOGLE</p>
               </div>
             </li>
           </ul>
@@ -103,7 +118,7 @@ const Login = () => {
         </div>
       </div>
     </div>
-    );
+  );
 };
 
 export default Login;
