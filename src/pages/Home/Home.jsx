@@ -1,10 +1,10 @@
-import Navbar from "../../shared/Navbar/Navbar";
+
 
 
 const Home = () => {
     return (
         <div className="">
-            <Navbar />
+            hhhjbblhbjhv
         </div>
     );
 };
