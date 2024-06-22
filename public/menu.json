@@ -1,0 +1,110 @@
+[
+    {
+        "meal_img": "https://i.postimg.cc/rFSgR7Vm/meal.webp",
+        "admin_name": "John Doe",
+        "post_time": "2024-06-20T08:00:00Z",
+        "rating": 4.5,
+        "like": 150,
+        "category": "breakfast",
+        "item_name": "Pancakes with Maple Syrup"
+    },
+    {
+        "meal_img": "https://i.postimg.cc/rFSgR7Vm/meal.webp",
+        "admin_name": "Jane Smith",
+        "post_time": "2024-06-21T08:30:00Z",
+        "rating": 4.0,
+        "like": 120,
+        "category": "breakfast",
+        "item_name": "Scrambled Eggs with Toast"
+    },
+    {
+        "meal_img": "https://i.postimg.cc/rFSgR7Vm/meal.webp",
+        "admin_name": "Emily Johnson",
+        "post_time": "2024-06-22T09:00:00Z",
+        "rating": 4.8,
+        "like": 200,
+        "category": "breakfast",
+        "item_name": "Avocado Toast"
+    },
+    {
+        "meal_img": "https://i.postimg.cc/rFSgR7Vm/meal.webp",
+        "admin_name": "Chris Brown",
+        "post_time": "2024-06-20T12:00:00Z",
+        "rating": 4.7,
+        "like": 180,
+        "category": "lunch",
+        "item_name": "Chicken Caesar Salad"
+    },
+    {
+        "meal_img": "https://i.postimg.cc/rFSgR7Vm/meal.webp",
+        "admin_name": "Patricia Green",
+        "post_time": "2024-06-21T12:30:00Z",
+        "rating": 4.2,
+        "like": 130,
+        "category": "lunch",
+        "item_name": "Turkey Sandwich"
+    },
+    {
+        "meal_img": "https://i.postimg.cc/rFSgR7Vm/meal.webp",
+        "admin_name": "Robert White",
+        "post_time": "2024-06-22T13:00:00Z",
+        "rating": 4.6,
+        "like": 170,
+        "category": "lunch",
+        "item_name": "Grilled Salmon with Vegetables"
+    },
+    {
+        "meal_img": "https://i.postimg.cc/rFSgR7Vm/meal.webp",
+        "admin_name": "Michael Black",
+        "post_time": "2024-06-20T18:00:00Z",
+        "rating": 4.9,
+        "like": 210,
+        "category": "dinner",
+        "item_name": "Steak with Mashed Potatoes"
+    },
+    {
+        "meal_img": "https://i.postimg.cc/rFSgR7Vm/meal.webp",
+        "admin_name": "Sarah Wilson",
+        "post_time": "2024-06-21T18:30:00Z",
+        "rating": 4.3,
+        "like": 140,
+        "category": "dinner",
+        "item_name": "Spaghetti Bolognese"
+    },
+    {
+        "meal_img": "https://i.postimg.cc/rFSgR7Vm/meal.webp",
+        "admin_name": "David Martinez",
+        "post_time": "2024-06-22T19:00:00Z",
+        "rating": 4.4,
+        "like": 160,
+        "category": "dinner",
+        "item_name": "Chicken Alfredo"
+    },
+    {
+        "meal_img": "https://i.postimg.cc/rFSgR7Vm/meal.webp",
+        "admin_name": "Laura Hernandez",
+        "post_time": "2024-06-20T15:00:00Z",
+        "rating": 4.1,
+        "like": 100,
+        "category": "snacks",
+        "item_name": "Fruit Salad"
+    },
+    {
+        "meal_img": "https://i.postimg.cc/rFSgR7Vm/meal.webp",
+        "admin_name": "James Clark",
+        "post_time": "2024-06-21T15:30:00Z",
+        "rating": 4.0,
+        "like": 90,
+        "category": "snacks",
+        "item_name": "Cheese and Crackers"
+    },
+    {
+        "meal_img": "https://i.postimg.cc/rFSgR7Vm/meal.webp",
+        "admin_name": "Mary Lewis",
+        "post_time": "2024-06-22T16:00:00Z",
+        "rating": 4.5,
+        "like": 110,
+        "category": "snacks",
+        "item_name": "Yogurt with Granola"
+    }
+]

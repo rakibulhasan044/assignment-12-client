@@ -1,6 +1,5 @@
 import Banner from "./Banner/Banner";
-import MealsCategory from "./Banner/MealsCategory/MealsCategory";
-
+import MealsCategory from "./MealsCategory/MealsCategory";
 
 
 const Home = () => {
