@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 
 const MealsCard = ({ item }) => {
-  const { _id, meal_img, rating, title, price } = item;
-  console.log(_id);
+  const {_id, meal_img, rating, title, price } = item;
+
   return (
     <div className="bg-base-100 shadow-xl">
       <figure>
@@ -14,11 +14,10 @@ const MealsCard = ({ item }) => {
           <p>Rating: {rating}</p>
           <p className="text-xl font-bold text-red-700">${price}</p>
         </div>
-
-        <Link to={`meal/${_id}`} className="btn btn-info">
+      </div>
+      <Link to={`meal/${_id}`} className="btn btn-info w-full">
           Details
         </Link>
-      </div>
     </div>
   );
 };

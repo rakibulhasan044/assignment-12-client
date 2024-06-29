@@ -7,12 +7,12 @@ import MealsCard from "./MealsCard";
 
 const MealsCategory = () => {
   const [tabIndex, setTabIndex] = useState(0);
-  const [meals, loading] = useMeals();
+  const [meals, loading] = useMeals(0);
 
   const categories = ["breakfast", "lunch", "snacks", "dinner"];
 
   const filterMealsByCategory = (category) => {
-    return meals?.filter((item) => item.category === category);
+    return  meals.filter((item) => item.category === category);
   };
 
   if (loading) {
