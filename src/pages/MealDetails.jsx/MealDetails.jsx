@@ -7,6 +7,7 @@ import Star from "../../components/Star/Star";
 
 const MealDetails = () => {
   const [selected, setSelected] = useState(false);
+  const [buttonText, setButtonText] = useState('Request Meal');
   const { id } = useParams();
   const axiosPublic = useAxiosPublic();
 
@@ -33,13 +34,17 @@ const MealDetails = () => {
     setSelected(!selected);
   };
 
+  const handleBtnClick = () => {
+    setButtonText('Requested');
+  }
+
   if (isLoading) return <LoadSpinner />;
 
   return (
     <div>
       <div className=" flex flex-col md:flex-row md:gap-10 lg:gap-20">
         <img className="md:w-1/2" src={meal_img} alt="" />
-        <div className="flex-1">
+        <div className="flex-1 space-y-2">
           <h3 className="md:text-2xl lg:text-4xl font-bold ">{title}</h3>
           <p className="text-xl font-semibold">distributor: {admin_name}</p>
           <p className="text-2xl font-extrabold text-green-500">${price}</p>
@@ -61,10 +66,16 @@ const MealDetails = () => {
             </div>
           </div>
           <div className="flex gap-2">
-          <Star rating={rating} />
           </div>
           <p>{meal?.description || "description...."}</p>
+          <button
+          onClick={handleBtnClick}
+           className="btn btn-outline btn-warning"
+           >{buttonText}</button>
         </div>
+      </div>
+      <div className="mt-10">
+      <Star rating={rating} />
       </div>
     </div>
   );
