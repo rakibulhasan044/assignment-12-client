@@ -1,5 +1,6 @@
 import Banner from "./Banner/Banner";
 import MealsCategory from "./MealsCategory/MealsCategory";
+import MembershipPackage from "./MembershipPackage/MembershipPackage";
 
 
 const Home = () => {
@@ -7,6 +8,7 @@ const Home = () => {
         <div className="">
             <Banner />
             <MealsCategory />
+            <MembershipPackage />
         </div>
     );
 };
