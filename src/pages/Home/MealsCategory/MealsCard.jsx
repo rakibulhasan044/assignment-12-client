@@ -1,16 +1,17 @@
 import { Link } from "react-router-dom";
+import PropTypes from 'prop-types'; 
 
 const MealsCard = ({ item }) => {
   const { _id, meal_img, rating, title, price } = item;
 
   return (
-    <div className="bg-base-100 shadow-xl">
+    <div className="bg-base-100 shadow-xl p-2 rounded-xl">
       <figure>
         <img className=" rounded-md" src={meal_img} alt="Shoes" />
       </figure>
       <div className="py-2">
         <h2 className="card-title">{title}</h2>
-        <div className="flex">
+        <div className="flex items-center gap-10 py-2">
           <p>Rating: {rating}</p>
           <p className="text-xl font-bold text-red-700">${price}</p>
         </div>
@@ -20,6 +21,17 @@ const MealsCard = ({ item }) => {
       </Link>
     </div>
   );
+};
+
+
+MealsCard.propTypes = {
+  item: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    meal_img: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default MealsCard;

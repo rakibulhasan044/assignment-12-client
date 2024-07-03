@@ -13,10 +13,12 @@
 // export default Star;
 
 import { FaStar, FaStarHalf } from 'react-icons/fa';
+import PropTypes from 'prop-types';
+
 
 const Star = ({ rating }) => {
   const fullStars = Math.floor(rating);
-  const halfStar = rating % 1 !== 0; // Check if there is a half star
+  const halfStar = rating % 1 !== 0;
   const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
   console.log(fullStars,'mm', halfStar,'empty', emptyStars);
 
@@ -31,6 +33,10 @@ const Star = ({ rating }) => {
       ))}
     </div>
   );
+};
+
+Star.propTypes = {
+  rating: PropTypes.number
 };
 
 export default Star;

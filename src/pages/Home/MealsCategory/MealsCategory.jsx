@@ -7,7 +7,7 @@ import MealsCard from "./MealsCard";
 
 const MealsCategory = () => {
   const [tabIndex, setTabIndex] = useState(0);
-  const [meals, loading] = useMeals(0);
+  const [meals, , isLoading] = useMeals(0);
   
 
   const categories = ["breakfast", "lunch", "snacks", "dinner"];
@@ -16,7 +16,7 @@ const MealsCategory = () => {
     return  meals.filter((item) => item.category === category);
   };
 
-  if (loading) {
+  if (isLoading) {
     return <div className="loading loading-ring loading-lg text-info flex items-center justify-center mx-auto"></div>
   }
 
@@ -33,7 +33,6 @@ const MealsCategory = () => {
         <TabPanel key={index}>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
             {filterMealsByCategory(category).map((item, index) => (
-              // <li key={index}>{item.item_name}</li>
               <MealsCard key={index} item={item} />
             ))}
           </div>

@@ -1,7 +1,7 @@
 import { useQuery} from "@tanstack/react-query";
 import useAxiosPublic from "./useAxiosPublic";
 
-const useMeals = (page, filter, priceRange, limit = 6) => {
+const useMeals = (page, filter, priceRange, limit = 0) => {
   const axiosPublic = useAxiosPublic();
 
   const { data: meals = [], isLoading, refetch } = useQuery({

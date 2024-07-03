@@ -7,6 +7,7 @@ import {
   onAuthStateChanged,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import PropTypes from 'prop-types';
 
@@ -38,6 +39,12 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
+  const updateUserProfile = (name, photoUrl) => {
+    return updateProfile(auth.currentUser, {
+        displayName: name, photoURL: photoUrl
+    })
+}
+
   useEffect(() => {
     const unsubscribe = () => {
         onAuthStateChanged(auth, currentUser => {
@@ -59,7 +66,9 @@ const AuthProvider = ({ children }) => {
     signIn,
     googleSignIn,
     logOut,
+    updateUserProfile,
   };
+  
   return (
     <AuthContext.Provider value={authInfo}>
         {children}

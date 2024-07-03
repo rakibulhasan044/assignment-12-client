@@ -1,21 +1,21 @@
+import { useForm } from "react-hook-form";
+import { FaGoogle } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { FaEye } from "react-icons/fa6";
 import { FaEyeSlash } from "react-icons/fa";
-import { FaGoogle } from "react-icons/fa6";
-import { useEffect, useState } from "react";
-import Lottie from "lottie-react";
-import login from "../../assets/animation/login.json";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 
-const Login = () => {
+const Register = () => {
+
   const [show, setShow] = useState(false);
   const { user, googleSignIn } = useAuth();
 
-  const handleLogin = async (e) => {
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
+  const onSubmit = data => {
+    console.log(data);
   };
 
   const handleGoogleLogin = async () => {
@@ -34,67 +34,48 @@ const Login = () => {
     }
   };
 
-  useEffect(() => {
-    AOS.init();
-  }, []);
   return (
-    <div
-      className="relative flex flex-col md:flex-row items-center py-10 md:py-20 max-h-screen w-full"
-      data-aos="fade-down"
-    >
-      <div className="w-full md:w-2/5 h-full md:h-auto absolute md:relative top-0 left-0 md:top-auto md:left-auto">
-        <Lottie
-          animationData={login}
-          className="w-full h-full md:h-auto"
-          style={{ zIndex: -1 }}
-        />
-      </div>
-      <div className="flex flex-col w-full md:w-3/5 z-10  p-5 md:p-0">
-        <form onSubmit={handleLogin} className="w-full md:w-4/5 mx-auto">
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Email</span>
-            </label>
-            <input
-              type="email"
-              placeholder="email"
-              name="email"
-              className="input input-bordered"
-              required
-            />
-          </div>
-          <div className="form-control relative">
-            <label className="label">
-              <span className="label-text">Password</span>
-            </label>
-            <input
-              type={show ? "text" : "password"}
-              placeholder="password"
-              name="password"
-              className="input input-bordered"
-              required
-            />
-            <span
-              className="absolute top-[52px] right-[10%] cursor-pointer"
-              onClick={() => setShow(!show)}
-              tabIndex={0}
-              aria-label="Toggle password visibility"
-              role="button"
-            >
-              {show ? <FaEye /> : <FaEyeSlash />}
-            </span>
-            <label className="label">
-              <a href="#" className="label-text-alt link link-hover">
-                Forgot password?
-              </a>
-            </label>
-          </div>
-          <div className="form-control mt-6">
-            <button className="btn btn-primary">Login</button>
-          </div>
-          <hr className="mt-5" />
-        </form>
-        <div className="text-center space-y-2 pt-4">
+    <div className="flex flex-col gap-8 items-center md:mt-20 mx-auto max-w-2xl min-h-screen">
+      <form className="w-full"
+      onSubmit={handleSubmit(onSubmit)}>
+
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Email</span>
+          </label>
+          <input type="email"
+           placeholder="email"
+           name="email"
+           {...register("name", {required: true})}
+          className="input input-bordered" />
+          {errors.email && <span>This field is required</span>}
+        </div>
+
+        <div className="form-control ">
+          <label className="label relative "
+          onClick={() => setShow(!show)}>
+            <span className="label-text ">Password</span>
+            {
+              show ? <FaEye size={20} className=" absolute right-[5%] top-[140%]"/> :
+              <FaEyeSlash size={20} className=" absolute right-[5%] top-[140%]"/>
+            }
+          </label>
+          <input type={ show ? 'text' : 'password' }
+          placeholder="password"
+          name="password"
+          {...register("password", { required: true})}
+          className="input input-bordered" />
+          {errors.password && <span>This field is required</span>}
+          <label className="label">
+            <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+          </label>
+        </div>
+        <div className="form-control mt-6">
+          <button className="btn btn-primary">Register</button>
+        </div>
+      </form>
+
+      <div className="text-center space-y-2">
           <h1 className="text-xl font-bold">Or login with</h1>
           <ul className="flex gap-10 items-center justify-center">
             <li
@@ -110,15 +91,15 @@ const Login = () => {
             </li>
           </ul>
           <p>
-            Do not have an account?{" "}
+            Do not have an account ? 
             <Link to="/register" className="text-primary font-semibold">
               Register here
             </Link>
           </p>
         </div>
-      </div>
+
     </div>
   );
 };
 
-export default Login;
+export default Register;

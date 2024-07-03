@@ -1,116 +1,187 @@
-import { useEffect, useState } from "react";
-import { Link} from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { FaGoogle } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 import { FaEye } from "react-icons/fa6";
 import { FaEyeSlash } from "react-icons/fa";
-import register from "../../assets/animation/register.json";
-import Lottie from "lottie-react";
+import { useState } from "react";
+import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-
+import { imageUpload } from "../../Utils/image";
 
 const Register = () => {
 
   const [show, setShow] = useState(false);
+  const { user, googleSignIn } = useAuth();
 
-  useEffect(() => {
-    AOS.init();
-  },[])
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  // const handleRegister = (e) => {
+  //   e.preventDefault();
+  //   const form = e.target;
+  //   const name = form.name.value;
+  //   const email = form.email.value;
+  //   const photourl = form.photourl.value;
+  //   const password = form.password.value;
 
+  //   const uppercaseRegex = /[A-Z]/;
+  //   const lowercaseRegex = /[a-z]/;
+  //   const lengthRegex = /.{6,}/;
 
-const handleRegister = e => {
-    console.log('click');
-}
+  //   if (!lengthRegex.test(password)) {
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Oops...",
+  //       text: `Password must be longer than 6 character!`,
+  //     });
+  //     return;
+  //   } 
+  //   if (!uppercaseRegex.test(password)) {
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Oops...",
+  //       text: `Please include a uppercase character!`,
+  //     });
+  //     return;
+  //   }
+  //   if (!lowercaseRegex.test(password)) {
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Oops...",
+  //       text: `Please include a lowercase character!`,
+  //     });
+  //     return;
+  //   }
+
+  //   createUser(email, password)
+  //     .then((res) => {
+  //       console.log(res.user);
+  //       updateUserProfile(name, photourl);
+  //       setUser({ ...res?.user, displayName: name, photoURL: photourl });
+  //       navigate(location?.state ? location.state : '/', {replace: true})
+  //       Swal.fire({
+  //         title: "Successfully Register!",
+  //         text: "Welcome!",
+  //         icon: "success",
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       Swal.fire({
+  //         title: "Please Try Again!",
+  //         text: `${error.message}`,
+  //         icon: "error",
+  //       });
+  //     });
+  // };
+
+  const onSubmit = async (data) => {
+    console.log(data);
+    const imageUrl = await imageUpload(data.photoUrl[0]);
+    //console.log(imageUrl);
+  };
+
+  const handleGoogleLogin = async () => {
+    console.log("google click");
+    try {
+      const result = await googleSignIn();
+      console.log(result.user);
+      // navigate(location?.state ? location.state : "/");
+      Swal.fire({
+        title: "Successfully Login!",
+        text: "Welcome!",
+        icon: "success",
+      });
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
 
   return (
-    <div className="relative flex flex-col md:flex-row items-center py-10 md:py-20 max-h-screen w-full"  data-aos="fade-down-left">
-      <div className="w-full md:w-2/5 h-full md:h-auto absolute md:relative top-0 left-0 md:top-auto md:left-auto">
-        <Lottie
-          animationData={register}
-          loop={true}
-          className="w-full h-full md:h-auto"
-          style={{ zIndex: -1 }}
-        />
-      </div>
-      <div className="flex flex-col w-full md:w-3/5 z-10  p-5 md:p-0">
-        <form onSubmit={handleRegister} className="w-full md:w-4/5 mx-auto">
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Name</span>
-            </label>
-            <input
-              type="text"
-              placeholder="name"
-              name="name"
-              className="input input-bordered"
-              required
-            />
-          </div>
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Email</span>
-            </label>
-            <input
-              type="email"
-              placeholder="email"
-              name="email"
-              className="input input-bordered"
-              required
-            />
-          </div>
-          {/* <div className="form-control">
-            <label className="label">
-              <span className="label-text">Photo URL</span>
-            </label>
-            <input
-              type="text"
-              placeholder="photo url"
-              name="photourl"
-              className="input input-bordered"
-              required
-            />
-          </div> */}
-          <div className="form-control relative">
+    <div className="flex flex-col gap-8 items-center justify-center mx-auto max-w-2xl">
+      <form className="w-full"
+      onSubmit={handleSubmit(onSubmit)}>
+      <div className="form-control">
           <label className="label">
-              <span className="label-text">Photo URL</span>
-            </label>
-          <input type="file" className="file-input file-input-bordered w-full max-w-xs" />
-          </div>
-          <div className="form-control relative">
-            <label className="label">
-              <span className="label-text">Password</span>
-            </label>
-            <input
-              type={show ? "text" : "password"}
-              placeholder="password"
-              name="password"
-              className="input input-bordered"
-              required
-            />
-            <span
-              className="absolute top-[52px] right-[10%] cursor-pointer"
-              onClick={() => setShow(!show)}
+            <span className="label-text">Name</span>
+          </label>
+          <input type="text"
+          placeholder="name"
+          name="name"
+          {...register("name", {required: true})} 
+          className="input input-bordered" />
+          {errors.name && <span>This field is required</span>}
+        </div>
+
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Email</span>
+          </label>
+          <input type="email"
+           placeholder="email"
+           name="email"
+           {...register("email", {required: true})}
+          className="input input-bordered" />
+          {errors.email && <span>This field is required</span>}
+        </div>
+
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Photo URL</span>
+          </label>
+          <input type="file"
+          placeholder="photo url"
+          name="photoUrl"
+          {...register("photoUrl", { required: true})}
+         
+          className="file-input file-input-bordered w-full max-w-2xl" />
+          {errors.email && <span>This field is required</span>}
+        </div>
+
+        <div className="form-control ">
+          <label className="label relative "
+          onClick={() => setShow(!show)}>
+            <span className="label-text ">Password</span>
+            {
+              show ? <FaEye size={20} className=" absolute right-[5%] top-[140%]"/> :
+              <FaEyeSlash size={20} className=" absolute right-[5%] top-[140%]"/>
+            }
+          </label>
+          <input type={ show ? 'text' : 'password' }
+          placeholder="password"
+          name="password"
+          {...register("password", { required: true})}
+          className="input input-bordered" />
+          {errors.password && <span>This field is required</span>}
+          <label className="label">
+            <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+          </label>
+        </div>
+        <div className="form-control mt-6">
+          <button className="btn btn-primary">Register</button>
+        </div>
+      </form>
+
+      <div className="text-center space-y-2">
+          <h1 className="text-xl font-bold">Or login with</h1>
+          <ul className="flex gap-10 items-center justify-center">
+            <li
+              onClick={handleGoogleLogin}
               tabIndex={0}
-              aria-label="Toggle password visibility"
               role="button"
+              aria-label="Login with Google"
             >
-              {show ? <FaEye /> : <FaEyeSlash />}
-            </span>
-          </div>
-          <div className="form-control mt-6">
-            <button className="btn btn-primary">Register</button>
-          </div>
-          <hr className="mt-5" />
-        </form>
-        <div className="text-center space-y-2 pt-4">
+              <div className="flex gap-3 border p-2 rounded border-orange-400">
+                <FaGoogle size={30} />
+                <p className=" text-2xl font-semibold">GOOGLE</p>
+              </div>
+            </li>
+          </ul>
           <p>
-            Already have an account?{" "}
+            Do not have an account ? 
             <Link to="/login" className="text-primary font-semibold">
-              login here
+              Login here
             </Link>
           </p>
         </div>
-      </div>
+
     </div>
   );
 };

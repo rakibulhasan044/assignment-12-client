@@ -1,7 +1,8 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/16/solid";
+import PropTypes from 'prop-types'; 
 
-const CategoryListbox = ({ options, name, handleCategory }) => {
+const CategoryListbox = ({ options, name, handleFilter }) => {
 
   const capitalizeFirstLetter = (string) => {
     if (typeof string === 'string') {
@@ -24,33 +25,23 @@ const CategoryListbox = ({ options, name, handleCategory }) => {
           className="absolute right-0 w-52 mt-2 origin-top-right rounded-xl border border-white/5 bg-black/80 p-1 text-sm text-white shadow-lg focus:outline-none z-50"
         >
           {options.map((option, index) => 
-            <MenuItem key={index} onClick={() => handleCategory(option)}>
+            <MenuItem key={index} onClick={() => handleFilter(option)}>
               <button className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10" 
               >
               {capitalizeFirstLetter(option)}
               </button>
             </MenuItem>
           )}
-          {/* <MenuItem>
-            <button className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10">
-              Lunch
-            </button>
-          </MenuItem>
-          <div className="my-1 h-px bg-white/5" />
-          <MenuItem>
-            <button className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10">
-              Snacks
-            </button>
-          </MenuItem>
-          <MenuItem>
-            <button className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10">
-              Dinner
-            </button>
-          </MenuItem> */}
         </MenuItems>
       </Menu>
     </div>
   );
+};
+
+CategoryListbox.propTypes = {
+  options: PropTypes.array,
+  name: PropTypes.string,
+  handleFilter: PropTypes.func,
 };
 
 export default CategoryListbox;

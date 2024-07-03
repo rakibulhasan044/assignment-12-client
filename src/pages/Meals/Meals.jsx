@@ -1,25 +1,31 @@
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import useMeals from '../../hooks/useMeals';
+import useMeals from "../../hooks/useMeals";
 import MealsCard from "../Home/MealsCategory/MealsCard";
 import CategoryListbox from "../../components/CategoryListbox/CategoryListbox";
 import LoadSpinner from "../../components/Spiner/LoadSpinner";
 
 const Meals = () => {
+  const limit = 6;
   const [page, setPage] = useState(1);
-  const [filter, setFilter] = useState('');
-  const [priceRange, setPriceRange] = useState('');
-  const [meals, totalMealsCount, isLoading, refetch ] = useMeals(page, filter, priceRange);
+  const [filter, setFilter] = useState("");
+  const [priceRange, setPriceRange] = useState("");
+  const [meals, totalMealsCount, isLoading, refetch] = useMeals(
+    page,
+    filter,
+    priceRange,
+    limit
+  );
   const [items, setItems] = useState([]);
 
-  const options = ['breakfast', 'lunch', 'snacks', 'dinner', 'all'];
-  const priceRangeOptions = ['5-10', '10-20', '20-30', 'all'];
+  const options = ["breakfast", "lunch", "snacks", "dinner", "all"];
+  const priceRangeOptions = ["5-10", "10-20", "20-30", "all"];
 
   useEffect(() => {
     if (page === 1) {
       setItems(meals);
     } else {
-      setItems(prevItems => [...prevItems, ...meals]);
+      setItems((prevItems) => [...prevItems, ...meals]);
     }
   }, [meals, page]);
 
@@ -29,45 +35,50 @@ const Meals = () => {
   }, [filter, priceRange, refetch]);
 
   const handleCategory = (selectedFilter) => {
-    setFilter(selectedFilter === 'all' ? '' : selectedFilter);
+    setFilter(selectedFilter === "all" ? "" : selectedFilter);
   };
 
   const handlePriceRange = (selectedPriceRange) => {
-    setPriceRange(selectedPriceRange === 'all' ? '' : selectedPriceRange);
+    setPriceRange(selectedPriceRange === "all" ? "" : selectedPriceRange);
   };
 
   const fetchMoreData = () => {
     if (items.length < totalMealsCount) {
-      setPage(prevPage => prevPage + 1);
+      setPage((prevPage) => prevPage + 1);
     }
   };
 
   return (
     <div>
-      <h1>Meals</h1>
+      <h1 className="text-center text-3xl font-bold text-green-500 pb-3">Our available Meals</h1>
       <hr />
       <div className="flex gap-5 md:gap-20">
         <CategoryListbox
           options={options}
-          name={'Filter by Category'}
-          handleCategory={handleCategory}
+          name={"Filter by Category"}
+          handleFilter={handleCategory}
         />
         <CategoryListbox
           options={priceRangeOptions}
-          name={'Filter by Price'}
-          handleCategory={handlePriceRange}
+          name={"Filter by Price"}
+          handleFilter={handlePriceRange}
         />
       </div>
       <InfiniteScroll
         dataLength={items.length}
         next={fetchMoreData}
         hasMore={items.length < totalMealsCount}
-        loader={<LoadSpinner/>}
-        
+        loader={<LoadSpinner />}
         endMessage={
-          <p style={{ textAlign: "center", padding: 10 }}>
-            <b>No More Meal Availavle</b>
-          </p>
+          isLoading ? (
+            <LoadSpinner />
+          ) : (
+            <>
+              <p style={{ textAlign: "center", padding: 10 }}>
+                <b>No More Meal Availavle</b>
+              </p>
+            </>
+          )
         }
       >
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
