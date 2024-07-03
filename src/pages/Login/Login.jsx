@@ -10,12 +10,19 @@ import Swal from "sweetalert2";
 const Register = () => {
 
   const [show, setShow] = useState(false);
-  const { user, googleSignIn } = useAuth();
+  const { user, googleSignIn, signIn } = useAuth();
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = data => {
     console.log(data);
+    signIn(data.email, data.password)
+    .then(res => {
+      console.log(res.user);
+    })
+    .catch(error => {
+      console.log(error);
+    }) 
   };
 
   const handleGoogleLogin = async () => {
@@ -25,12 +32,23 @@ const Register = () => {
       console.log(result.user);
       // navigate(location?.state ? location.state : "/");
       Swal.fire({
-        title: "Successfully Login!",
-        text: "Welcome!",
+        position: "top-center",
         icon: "success",
+        title: 'Register successful',
+        text: `Welcome, ${user?.displayName}`,
+        showConfirmButton: false,
+        timer: 1500
       });
     } catch (err) {
       console.log(err.message);
+      Swal.fire({
+        position: "top-end",
+        title: `${err.message}`,
+        icon: "error",
+        text: `${err.message}`,
+        showConfirmButton: false,
+        timer: 1500
+      });
     }
   };
 
@@ -46,7 +64,7 @@ const Register = () => {
           <input type="email"
            placeholder="email"
            name="email"
-           {...register("name", {required: true})}
+           {...register("email", {required: true})}
           className="input input-bordered" />
           {errors.email && <span>This field is required</span>}
         </div>

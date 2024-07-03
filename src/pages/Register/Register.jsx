@@ -11,71 +11,37 @@ import { imageUpload } from "../../Utils/image";
 const Register = () => {
 
   const [show, setShow] = useState(false);
-  const { user, googleSignIn } = useAuth();
+  const { user, googleSignIn, updateUserProfile, createUser, setUser } = useAuth();
 
   const { register, handleSubmit, formState: { errors } } = useForm();
-  // const handleRegister = (e) => {
-  //   e.preventDefault();
-  //   const form = e.target;
-  //   const name = form.name.value;
-  //   const email = form.email.value;
-  //   const photourl = form.photourl.value;
-  //   const password = form.password.value;
-
-  //   const uppercaseRegex = /[A-Z]/;
-  //   const lowercaseRegex = /[a-z]/;
-  //   const lengthRegex = /.{6,}/;
-
-  //   if (!lengthRegex.test(password)) {
-  //     Swal.fire({
-  //       icon: "error",
-  //       title: "Oops...",
-  //       text: `Password must be longer than 6 character!`,
-  //     });
-  //     return;
-  //   } 
-  //   if (!uppercaseRegex.test(password)) {
-  //     Swal.fire({
-  //       icon: "error",
-  //       title: "Oops...",
-  //       text: `Please include a uppercase character!`,
-  //     });
-  //     return;
-  //   }
-  //   if (!lowercaseRegex.test(password)) {
-  //     Swal.fire({
-  //       icon: "error",
-  //       title: "Oops...",
-  //       text: `Please include a lowercase character!`,
-  //     });
-  //     return;
-  //   }
-
-  //   createUser(email, password)
-  //     .then((res) => {
-  //       console.log(res.user);
-  //       updateUserProfile(name, photourl);
-  //       setUser({ ...res?.user, displayName: name, photoURL: photourl });
-  //       navigate(location?.state ? location.state : '/', {replace: true})
-  //       Swal.fire({
-  //         title: "Successfully Register!",
-  //         text: "Welcome!",
-  //         icon: "success",
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       Swal.fire({
-  //         title: "Please Try Again!",
-  //         text: `${error.message}`,
-  //         icon: "error",
-  //       });
-  //     });
-  // };
 
   const onSubmit = async (data) => {
-    console.log(data);
     const imageUrl = await imageUpload(data.photoUrl[0]);
-    //console.log(imageUrl);
+
+    createUser(data.email, data.password)
+    .then(res => {
+      updateUserProfile(data.name, imageUrl);
+      setUser({...res?.user, displayName: data.name, photoURL: imageUrl})
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: 'Register successful',
+        text: `Welcome, ${user?.displayName}`,
+        showConfirmButton: false,
+        timer: 1500
+      });
+    })
+    .catch(error => {
+      console.log(error);
+      Swal.fire({
+        position: "top-end",
+        title: `${error.message}`,
+        icon: "error",
+        text: `${error.message}`,
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }) 
   };
 
   const handleGoogleLogin = async () => {
