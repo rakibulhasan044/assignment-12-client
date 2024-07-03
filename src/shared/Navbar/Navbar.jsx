@@ -16,10 +16,6 @@ const Navbar = () => {
       <li>
         <NavLink to="/upcoming-meals">Upcoming Meals</NavLink>
       </li>
-
-      <li>
-        <NavLink to="/register">Register</NavLink>
-      </li>
     </>
   );
 
@@ -62,7 +58,7 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            <Link to="login">Join Us</Link>
+            <Link to="register">Join Us</Link>
           </>
         )}
       </div>

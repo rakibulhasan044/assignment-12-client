@@ -7,29 +7,48 @@ import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { imageUpload } from "../../Utils/image";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Register = () => {
 
   const [show, setShow] = useState(false);
-  const { user, googleSignIn, updateUserProfile, createUser, setUser } = useAuth();
+  const { googleSignIn, updateUserProfile, createUser, setUser } = useAuth();
+  const axiosPublic = useAxiosPublic()
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, reset, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = async (data) => {
     const imageUrl = await imageUpload(data.photoUrl[0]);
 
     createUser(data.email, data.password)
     .then(res => {
-      updateUserProfile(data.name, imageUrl);
+      updateUserProfile(data.name, imageUrl)
+      .then(() => {
+
+        const userInfo = {
+          name: data.name,
+          email: data.email,
+          photo: imageUrl,
+          package: 'bronze',
+          role: 'user'
+        }
+
+        axiosPublic.post('/users', userInfo)
+        .then(res => {
+          if(res.data.insertedId) {
+            reset()
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: 'Register successful',
+              showConfirmButton: false,
+              timer: 1500
+            });
+          }
+        })
+      })
       setUser({...res?.user, displayName: data.name, photoURL: imageUrl})
-      Swal.fire({
-        position: "top-center",
-        icon: "success",
-        title: 'Register successful',
-        text: `Welcome, ${user?.displayName}`,
-        showConfirmButton: false,
-        timer: 1500
-      });
+      
     })
     .catch(error => {
       console.log(error);
@@ -42,19 +61,36 @@ const Register = () => {
         timer: 1500
       });
     }) 
+    
+    
   };
 
   const handleGoogleLogin = async () => {
     console.log("google click");
     try {
       const result = await googleSignIn();
-      console.log(result.user);
+      const currentUser = result.user;
       // navigate(location?.state ? location.state : "/");
+      const userInfo = {
+        name: currentUser?.displayName,
+        email: currentUser?.email,
+        photo: currentUser?.photoURL,
+        package: 'bronze',
+        role: 'user'
+      };
+
+      await axiosPublic.post('/users', userInfo);
       Swal.fire({
+        position: "top-end",
         title: "Successfully Login!",
         text: "Welcome!",
         icon: "success",
+        showConfirmButton: false,
+        timer: 1500
       });
+
+      
+      
     } catch (err) {
       console.log(err.message);
     }
@@ -141,7 +177,7 @@ const Register = () => {
             </li>
           </ul>
           <p>
-            Do not have an account ? 
+            Allready have an account ? 
             <Link to="/login" className="text-primary font-semibold">
               Login here
             </Link>
