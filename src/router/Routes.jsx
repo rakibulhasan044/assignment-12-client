@@ -33,9 +33,9 @@ const router = createBrowserRouter([
         {
             path: 'meal/:id',
             element: <MealDetails/>,
-        }
-        ,{
-            path: 'checkout',
+        },
+        {
+            path: 'checkout/:id',
             element: <CheckOut />
         }
     ]

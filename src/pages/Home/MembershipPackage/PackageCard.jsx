@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
 
 const PackageCard = ({ item }) => {
+    console.log(item._id);
   return (
     <div
       className={`border rounded-xl text-neutral-content 
@@ -19,7 +20,7 @@ const PackageCard = ({ item }) => {
         <h2 className="card-title text-3xl">${item.price}</h2>
         <h2 className="card-title text-xl">/month</h2>
         <p className="text-slate-400">Meals for Breakfast, Lunch, Dinner and Snack with 4 Week Rotation</p>
-        <Link to="/checkout" className="btn border-green-500 text-green-500 bg-slate-100 hover:bg-green-500 hover:text-white w-full">
+        <Link to={`/checkout/${item._id}`} className="btn border-green-500 text-green-500 bg-slate-100 hover:bg-green-500 hover:text-white w-full">
           Details
         </Link>
       </div>
