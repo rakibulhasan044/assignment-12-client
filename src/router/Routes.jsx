@@ -5,6 +5,7 @@ import Meals from "../pages/Meals/Meals";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import MealDetails from "../pages/MealDetails.jsx/MealDetails";
+import CheckOut from "../pages/CheckOut/CheckOut";
 
 
 
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
         {
             path: 'meal/:id',
             element: <MealDetails/>,
+        }
+        ,{
+            path: 'checkout',
+            element: <CheckOut />
         }
     ]
   },

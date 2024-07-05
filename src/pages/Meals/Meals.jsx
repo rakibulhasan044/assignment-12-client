@@ -17,6 +17,7 @@ const Meals = () => {
     limit
   );
   const [items, setItems] = useState([]);
+  console.log(items);
 
   const options = ["breakfast", "lunch", "snacks", "dinner", "all"];
   const priceRangeOptions = ["5-10", "10-20", "20-30", "all"];
@@ -25,7 +26,7 @@ const Meals = () => {
     if (page === 1) {
       setItems(meals);
     } else {
-      setItems((prevItems) => [...prevItems, ...meals]);
+      setItems((prevItems) => [...prevItems, ...meals])
     }
   }, [meals, page]);
 

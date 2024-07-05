@@ -70,7 +70,6 @@ const Register = () => {
     try {
       const result = await googleSignIn();
       const currentUser = result.user;
-      // navigate(location?.state ? location.state : "/");
       const userInfo = {
         name: currentUser?.displayName,
         email: currentUser?.email,
@@ -81,15 +80,13 @@ const Register = () => {
 
       await axiosPublic.post('/users', userInfo);
       Swal.fire({
-        position: "top-end",
+        position: "top",
         title: "Successfully Login!",
         text: "Welcome!",
         icon: "success",
         showConfirmButton: false,
         timer: 1500
       });
-
-      
       
     } catch (err) {
       console.log(err.message);

@@ -6,11 +6,13 @@ import { FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Register = () => {
 
   const [show, setShow] = useState(false);
   const { user, googleSignIn, signIn } = useAuth();
+  const axiosPublic = useAxiosPublic()
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -29,26 +31,27 @@ const Register = () => {
     console.log("google click");
     try {
       const result = await googleSignIn();
-      console.log(result.user);
-      // navigate(location?.state ? location.state : "/");
+      const currentUser = result.user;
+      const userInfo = {
+        name: currentUser?.displayName,
+        email: currentUser?.email,
+        photo: currentUser?.photoURL,
+        package: 'bronze',
+        role: 'user'
+      };
+
+      await axiosPublic.post('/users', userInfo);
       Swal.fire({
-        position: "top-center",
+        position: "top",
+        title: "Successfully Login!",
+        text: "Welcome!",
         icon: "success",
-        title: 'Register successful',
-        text: `Welcome, ${user?.displayName}`,
         showConfirmButton: false,
         timer: 1500
       });
+      
     } catch (err) {
       console.log(err.message);
-      Swal.fire({
-        position: "top-end",
-        title: `${err.message}`,
-        icon: "error",
-        text: `${err.message}`,
-        showConfirmButton: false,
-        timer: 1500
-      });
     }
   };
 
@@ -115,7 +118,6 @@ const Register = () => {
             </Link>
           </p>
         </div>
-
     </div>
   );
 };

@@ -1,11 +1,25 @@
+import { useQuery } from "@tanstack/react-query";
+import PackageCard from "./PackageCard";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+
 const MembershipPackage = () => {
+  const axiosPublic = useAxiosPublic();
+  const {data: packages = [] } = useQuery({
+    queryKey: ['packages'],
+    queryFn: async () => {
+       const res = await axiosPublic.get(`/package`)
+       return res.data;
+    }
+  })
+
+  console.log(packages);
   return (
     <div className="">
       <h2 className="my-10 text-4xl text-center font-extrabold text-green-500">
         Explore Our special package
       </h2>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
-        <section className="border rounded-xl border-[#C0C0C0] px-2 py-5 relative">
+        {/* <section className="border rounded-xl border-[#C0C0C0] px-2 py-5 relative">
           <div className=" space-y-1">
             <h2 className="text-3xl text-center text-[#C0C0C0] font-bold">
               Silver
@@ -88,9 +102,9 @@ const MembershipPackage = () => {
           <div className="absolute bottom-5 w-[95%]">
           <button className="btn btn-outline btn-success w-full">Purchase</button>
           </div>
-        </section>
+        </section> */}
 
-        <section className="border rounded-xl border-[#FFD700] px-2 py-5 relative">
+        {/* <section className="border rounded-xl border-[#FFD700] px-2 py-5 relative">
           <div className=" space-y-1">
             <h2 className="text-3xl text-center text-[#FFD700] font-bold">
               Gold
@@ -196,9 +210,9 @@ const MembershipPackage = () => {
           <div className="lg:mt-6 w-[95%]">
           <button className="btn btn-outline btn-success w-full">Purchase</button>
           </div>
-        </section>
+        </section> */}
 
-        <section className="border rounded-xl border-[#e5e4e2] px-2 py-5 relative">
+        {/* <section className="border rounded-xl border-[#e5e4e2] px-2 py-5 relative">
           <div className=" space-y-1">
             <h2 className="text-3xl text-center text-[#e5e4e2] font-bold">
               Platinum
@@ -304,7 +318,11 @@ const MembershipPackage = () => {
           <div className="md:mt-12 lg:mt-0 xl:mt-6 w-[95%]">
           <button className="btn btn-outline btn-success w-full">Purchase</button>
           </div>
-        </section>
+        </section> */}
+        {
+          packages.map(item => <PackageCard key={item._id} item={item} />
+          )
+        }
       </div>
     </div>
   );
