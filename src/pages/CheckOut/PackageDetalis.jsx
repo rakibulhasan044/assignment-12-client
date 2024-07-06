@@ -1,19 +1,26 @@
 import PropTypes from 'prop-types';
+import CheckOutModal from '../../components/Modal/CheckOutModal';
+import { useState } from 'react';
 
-const PackageDetalis = ({ card }) => {
+const PackageDetalis = ({ item }) => {
+
+  const [isOpen, setIsOpen] = useState(false);
+  const closeModal = () => {
+    setIsOpen(false)
+  }
 
   return (
     <div className="flex justify-center">
       <section className={`border rounded-xl px-2 py-5 lg:w-3/5
-        ${card.title === "Silver" && "border-[#C0C0C0]"}
-        ${card.title === "Gold" && "border-[#FFD700]"}
-        ${card.title === "Platinum" && "border-[#e5e4e2]"}`}>
+        ${item?.title === "Silver" && "border-[#C0C0C0]"}
+        ${item?.title === "Gold" && "border-[#FFD700]"}
+        ${item?.title === "Platinum" && "border-[#e5e4e2]"}`}>
         <div className=" space-y-1">
           <h2 className={`text-3xl text-center font-bold
-            ${card.title === "Silver" && "text-[#C0C0C0]"}
-            ${card.title === "Gold" && "text-[#FFD700]"}
-            ${card.title === "Platinum" && "text-[#e5e4e2]"}`}>
-            {card.title}
+            ${item.title === "Silver" && "text-[#C0C0C0]"}
+            ${item.title === "Gold" && "text-[#FFD700]"}
+            ${item.title === "Platinum" && "text-[#e5e4e2]"}`}>
+            {item.title}
           </h2>
           <h2 className="text-3xl text-center text-[#C0C0C0] font-bold">
             $120
@@ -28,7 +35,7 @@ const PackageDetalis = ({ card }) => {
         </div>
         <ul className="timeline timeline-vertical -ml-40 md:-ml-72">
           {
-            card?.facilites.map((item, index) => (
+            item?.facilities.map((p, index) => (
                 <li key={index}>
             <div className="timeline-middle ">
               <svg
@@ -45,7 +52,7 @@ const PackageDetalis = ({ card }) => {
               </svg>
             </div>
             <div className="timeline-end timeline-box ">
-              {item}
+              {p}
             </div>
             <hr />
           </li>
@@ -54,9 +61,14 @@ const PackageDetalis = ({ card }) => {
          
         </ul>
         <div className="pt-5">
-        <button className="btn border-green-500 text-green-500 bg-slate-100 hover:bg-green-500 hover:text-white w-full">
+        <button onClick={() => setIsOpen(true)} className="btn border-green-500 text-green-500 bg-slate-100 hover:bg-green-500 hover:text-white w-full">
           Activate Plan
         </button>
+        <CheckOutModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        closeModal={closeModal}
+        item={item} />
         </div>
       </section>
     </div>
@@ -64,7 +76,7 @@ const PackageDetalis = ({ card }) => {
 };
 
 PackageDetalis.propTypes = {
-    card: PropTypes.object,
+    item: PropTypes.object,
 }
 
 export default PackageDetalis;

@@ -2,7 +2,7 @@
     {
         "title": "Silver",
         "price": 120,
-        "facilites": [
+        "facilities": [
             "Standard menu options",
             "Option to schedule one consultation session with a dietitian to discuss general dietary guidelines and basic nutritional advice",
             "Monthly 2 special Menu"
@@ -11,7 +11,7 @@
     {
         "title": "Gold",
         "price": 140,
-        "facilites": [
+        "facilities": [
             "All meals included, with expanded options for snacks and beverages.",
             "Premium menu options with seasonal specials",
             "Ability to request customizations to suit dietary preferences or allergies",
@@ -21,7 +21,7 @@
     {
         "title": "Platinum",
         "price": 160,
-        "facilites": [
+        "facilities": [
             "All-inclusive gourmet dining experience",
             "Exclusive access to personalized menu planning with the chef",
             "Customized dishes tailored to specific tastes and dietary requirements",
