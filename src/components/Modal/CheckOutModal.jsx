@@ -52,7 +52,7 @@ const CheckOutModal = ({ isOpen, closeModal, item, setIsOpen }) => {
 CheckOutModal.propTypes = {
   item: PropTypes.object,
   closeModal: PropTypes.func,
-  setIsOpen: PropTypes.bool,
+  setIsOpen: PropTypes.func,
   isOpen: PropTypes.bool
 }
 

@@ -22,10 +22,16 @@ const PackageDetalis = ({ item }) => {
             ${item.title === "Platinum" && "text-[#e5e4e2]"}`}>
             {item.title}
           </h2>
-          <h2 className="text-3xl text-center text-[#C0C0C0] font-bold">
-            $120
+          <h2 className={`text-3xl text-center font-bold
+            ${item.title === "Silver" && "text-[#C0C0C0]"}
+            ${item.title === "Gold" && "text-[#FFD700]"}
+            ${item.title === "Platinum" && "text-[#e5e4e2]"}`}>
+            ${item.price}
           </h2>
-          <h2 className="text-xl text-center text-[#C0C0C0] font-semibold">
+          <h2 className={`text-xl text-center font-semibold
+            ${item.title === "Silver" && "text-[#C0C0C0]"}
+            ${item.title === "Gold" && "text-[#FFD700]"}
+            ${item.title === "Platinum" && "text-[#e5e4e2]"}`}>
             /month
           </h2>
           <p className="text-center md:px-5">
@@ -54,7 +60,6 @@ const PackageDetalis = ({ item }) => {
             <div className="timeline-end timeline-box ">
               {p}
             </div>
-            <hr />
           </li>
             ))
           }

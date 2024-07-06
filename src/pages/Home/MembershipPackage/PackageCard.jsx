@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
 
 const PackageCard = ({ item }) => {
-    console.log(item._id);
+  
   return (
     <div
       className={`border rounded-xl text-neutral-content 

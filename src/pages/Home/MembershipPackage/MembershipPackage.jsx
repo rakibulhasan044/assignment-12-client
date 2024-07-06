@@ -12,7 +12,6 @@ const MembershipPackage = () => {
     }
   })
 
-  console.log(packages);
   return (
     <div className="">
       <h2 className="my-10 text-4xl text-center font-extrabold text-green-500">

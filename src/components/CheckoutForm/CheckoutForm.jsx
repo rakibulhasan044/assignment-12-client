@@ -87,11 +87,20 @@ const CheckoutForm = ({ closeModal, item, setIsOpen }) => {
         // 1. create payment info object
         console.log(paymentIntent);
         const paymentInfo = {
+            email: user?.email,
+            name: user?.displayName,
             transectionId: paymentIntent.id,
             date: new Date(),
         }
         console.log(paymentInfo);
         // 2.save payment info in booking collection db
+        try {
+            const {data} = await axiosPublic.post(`/payments`, paymentInfo)
+            console.log(data);
+        } catch (error) {
+            console.log(error);
+            
+        }
         // 3. change status of user
     }
     setProcessing(false)
@@ -147,7 +156,7 @@ const CheckoutForm = ({ closeModal, item, setIsOpen }) => {
 CheckoutForm.propTypes = {
     item: PropTypes.object,
     closeModal: PropTypes.func,
-    setIsOpen: PropTypes.bool
+    setIsOpen: PropTypes.func,
 
 }
 

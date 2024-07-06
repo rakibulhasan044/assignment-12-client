@@ -16,7 +16,7 @@ const MealsCard = ({ item }) => {
           <p className="text-xl font-bold text-red-700">${price}</p>
         </div>
       </div>
-      <Link to={`/meal/${_id}`} className="btn btn-info w-full">
+      <Link to={`/meal/${_id}`} className="btn btn-info w-full text-white hover:bg-white hover:text-info">
         Details
       </Link>
     </div>
