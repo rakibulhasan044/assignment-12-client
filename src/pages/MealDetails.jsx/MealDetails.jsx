@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import LoadSpinner from "../../components/Spiner/LoadSpinner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Star from "../../components/Star/Star";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
@@ -15,7 +15,7 @@ const MealDetails = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
 
-  const { data: meal = {}, isLoading } = useQuery({
+  const { data: meal = {}, isLoading, refetch } = useQuery({
     queryKey: ["meal", id],
     queryFn: async () => {
       const { data } = await axiosPublic.get(`/meal/${id}`);
@@ -28,14 +28,54 @@ const MealDetails = () => {
     admin_name,
     post_time,
     rating,
-    like,
+    likes,
     //category,
     title,
     price,
   } = meal;
 
-  const handleRadioChange = () => {
-    setSelected(!selected);
+  useEffect(() => {
+    const checkIfLiked = async () => {
+      if(user) {
+        const { data } = await axiosSecure.get(`/liked/${id}?email=${user.email}`)
+        setSelected(data.liked)
+      }
+    }
+    checkIfLiked()
+  },[id, user, axiosSecure])
+
+  const handleRadioChange = async () => {
+    if(user) {
+      try {
+        if(!selected) {
+          await axiosSecure.post(`/like/${id}`, {email: user.email})
+        }
+        else {
+          await axiosSecure.post(`/unlike/${id}`, { email: user.email });
+        }
+        setSelected(!selected);
+        refetch()
+
+      } catch (error) {
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: `${error.response?.data?.message || error.message}`,
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+    }
+    else {
+      Swal.fire({
+        position: "top-end",
+        icon: "warning",
+        title: "Please log in to like this meal",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
+    
   };
 
   const handleBtnClick = async () => {
@@ -97,7 +137,7 @@ const MealDetails = () => {
                   onChange={handleRadioChange}
                 />
               </div>
-              <span className="">{like}</span>
+              <span className="">{likes}</span>
             </div>
           </div>
           <div className="flex gap-2">

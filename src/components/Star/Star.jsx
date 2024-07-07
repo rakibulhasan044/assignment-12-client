@@ -20,7 +20,7 @@ const Star = ({ rating }) => {
   const fullStars = Math.floor(rating);
   const halfStar = rating % 1 !== 0;
   const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
-  console.log(fullStars,'mm', halfStar,'empty', emptyStars);
+  //console.log(fullStars,'mm', halfStar,'empty', emptyStars);
 
   return (
     <div className="flex">
