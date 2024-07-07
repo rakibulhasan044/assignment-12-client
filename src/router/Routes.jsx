@@ -6,6 +6,8 @@ import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import MealDetails from "../pages/MealDetails.jsx/MealDetails";
 import CheckOut from "../pages/CheckOut/CheckOut";
+import PrivateRoute from "./PrivateRoute";
+import Dashboard from "../layout/Dashboard";
 
 
 
@@ -32,14 +34,27 @@ const router = createBrowserRouter([
         },
         {
             path: 'meal/:id',
-            element: <MealDetails/>,
+            element: <PrivateRoute>
+                <MealDetails/>
+            </PrivateRoute>,
         },
         {
             path: 'checkout/:id',
-            element: <CheckOut />
+            element: <PrivateRoute>
+                <CheckOut />
+            </PrivateRoute>
         }
     ]
   },
+  {
+    path: 'dashboard',
+    element: <PrivateRoute>
+        <Dashboard />
+    </PrivateRoute>,
+    children: [
+        
+    ]
+  }
 ]);
 
 export default router;

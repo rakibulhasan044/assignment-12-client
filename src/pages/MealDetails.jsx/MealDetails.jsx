@@ -7,7 +7,6 @@ import Star from "../../components/Star/Star";
 
 const MealDetails = () => {
   const [selected, setSelected] = useState(false);
-  const [buttonText, setButtonText] = useState('Request Meal');
   const { id } = useParams();
   const axiosPublic = useAxiosPublic();
 
@@ -35,7 +34,7 @@ const MealDetails = () => {
   };
 
   const handleBtnClick = () => {
-    setButtonText('Requested');
+    
   }
 
   if (isLoading) return <LoadSpinner />;
@@ -71,7 +70,7 @@ const MealDetails = () => {
           <button
           onClick={handleBtnClick}
            className="btn btn-outline btn-warning"
-           >{buttonText}</button>
+           >Request Meal</button>
         </div>
       </div>
       <div className="mt-10">

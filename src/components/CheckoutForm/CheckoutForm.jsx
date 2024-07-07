@@ -2,10 +2,10 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import "./CheckoutForm.css";
 import { Button } from "@headlessui/react";
 import { useEffect, useState } from "react";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAuth from "../../hooks/useAuth";
 import PropTypes from 'prop-types';
 import { ImSpinner } from "react-icons/im";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 
 
@@ -13,7 +13,7 @@ const CheckoutForm = ({ closeModal, item, setIsOpen }) => {
 
   const stripe = useStripe();
   const elements = useElements();
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const { user } = useAuth()
   const [clientSecret, setClientSecret] = useState();
   const [cardError, setCardError] = useState('');
@@ -26,7 +26,7 @@ const CheckoutForm = ({ closeModal, item, setIsOpen }) => {
   },[item?.price])
 
   const getClientSecret = async (price) => {
-    const { data } = await axiosPublic.post(`/create-payment-intent`, price)
+    const { data } = await axiosSecure.post(`/create-payment-intent`, price)
     console.log(data);
     setClientSecret(data.clientSecret)
   }
@@ -37,14 +37,9 @@ const CheckoutForm = ({ closeModal, item, setIsOpen }) => {
     event.preventDefault();
 
     if (!stripe || !elements) {
-      // Stripe.js has not loaded yet. Make sure to disable
-      // form submission until Stripe.js has loaded.
       return;
     }
 
-    // Get a reference to a mounted CardElement. Elements knows how
-    // to find your CardElement because there can only ever be one of
-    // each type of element.
     const card = elements.getElement(CardElement);
 
     if (card == null) {
@@ -95,13 +90,23 @@ const CheckoutForm = ({ closeModal, item, setIsOpen }) => {
         console.log(paymentInfo);
         // 2.save payment info in booking collection db
         try {
-            const {data} = await axiosPublic.post(`/payments`, paymentInfo)
+            const {data} = await axiosSecure.post(`/payments`, paymentInfo)
             console.log(data);
+            try {
+              const subscription = {
+                package: item.title
+              }
+              
+              await axiosSecure.patch(`/user/package/${user?.email}`, subscription)
+            } catch (error) {
+              console.log(error);
+            }
         } catch (error) {
             console.log(error);
             
         }
         // 3. change status of user
+        
     }
     setProcessing(false)
     setIsOpen(false)
@@ -131,7 +136,6 @@ const CheckoutForm = ({ closeModal, item, setIsOpen }) => {
           type="submit"
           disabled={!stripe || !clientSecret || processing}
           className="inline-flex items-center gap-2 rounded-md bg-gray-600 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
-          //   onClick={closeModal}
         >
             {
                 processing ? <ImSpinner size={20} className="animate-spin m-auto" />

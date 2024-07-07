@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { FaGoogle } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaEye } from "react-icons/fa6";
 import { FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
@@ -12,15 +12,27 @@ const Register = () => {
 
   const [show, setShow] = useState(false);
   const { user, googleSignIn, signIn } = useAuth();
-  const axiosPublic = useAxiosPublic()
+  const axiosPublic = useAxiosPublic();
+  const location = useLocation();
+  const navigate = useNavigate()
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
   const onSubmit = data => {
     console.log(data);
     signIn(data.email, data.password)
     .then(res => {
+      reset()
       console.log(res.user);
+      navigate(location?.state ? location?.state : '/')
+      Swal.fire({
+        position: "top",
+        title: "Successfully Login!",
+        text: "Welcome!",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500
+      });
     })
     .catch(error => {
       console.log(error);
@@ -41,6 +53,7 @@ const Register = () => {
       };
 
       await axiosPublic.post('/users', userInfo);
+      navigate(location?.state ? location?.state : '/')
       Swal.fire({
         position: "top",
         title: "Successfully Login!",

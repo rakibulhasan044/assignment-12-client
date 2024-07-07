@@ -48,32 +48,59 @@ const AuthProvider = ({ children }) => {
     })
 }
 
+  // useEffect(() => {
+  //   const unsubscribe = () => {
+  //       onAuthStateChanged(auth, async (currentUser) => {
+  //           setUser(currentUser)
+  //           if(currentUser){
+  //             const userInfo = { email: currentUser.email}
+  //             axiosPublic.post(`/jwt`, userInfo)
+  //             .then(res => {
+  //               if(res.data.token) {
+  //                 localStorage.setItem('access-token', res.data.token)
+  //                 setLoading(false);
+  //               }
+                
+  //             })
+  //           }
+  //           else {
+  //             localStorage.removeItem('access-token')
+  //             setLoading(false);
+  //           }
+  //           console.log('current user ', currentUser);
+  //       })
+  //   }
+  //   return () => {
+  //       return unsubscribe();
+  //   }
+  // },[axiosPublic])
   useEffect(() => {
     const unsubscribe = () => {
-        onAuthStateChanged(auth, async (currentUser) => {
-            setUser(currentUser)
-            if(currentUser){
-              const userInfo = { email: currentUser.email}
-              axiosPublic.post(`/jwt`, userInfo)
-              .then(res => {
-                if(res.data.token) {
-                  localStorage.setItem('access-token', res.data.token)
-                  setLoading(false);
-                }
-                
-              })
+        onAuthStateChanged(auth, currentUser => {
+            setUser(currentUser);
+            if(currentUser) {
+                const userInfo = {email : currentUser.email};
+                axiosPublic.post('/jwt', userInfo)
+                .then(res => {
+                    if(res.data.token) {
+                        localStorage.setItem('access-token', res.data.token)
+                        setLoading(false);
+                    }
+                })
             }
             else {
-              localStorage.removeItem('access-token')
-              setLoading(false);
+                //
+                localStorage.removeItem('access-token')
+                setLoading(false);
             }
-            console.log('current user ', currentUser);
+            console.log('current user', currentUser);
+            
         })
     }
     return () => {
-        return unsubscribe();
+        return unsubscribe()
     }
-  },[axiosPublic])
+},[axiosPublic])
 
   const authInfo = {
     user,

@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import PackageCard from "./PackageCard";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const MembershipPackage = () => {
   const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure
   const {data: packages = [] } = useQuery({
     queryKey: ['packages'],
     queryFn: async () => {
