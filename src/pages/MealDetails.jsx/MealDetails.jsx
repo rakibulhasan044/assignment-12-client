@@ -4,11 +4,16 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 import LoadSpinner from "../../components/Spiner/LoadSpinner";
 import { useState } from "react";
 import Star from "../../components/Star/Star";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const MealDetails = () => {
   const [selected, setSelected] = useState(false);
   const { id } = useParams();
   const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
 
   const { data: meal = {}, isLoading } = useQuery({
     queryKey: ["meal", id],
@@ -24,7 +29,7 @@ const MealDetails = () => {
     post_time,
     rating,
     like,
-    category,
+    //category,
     title,
     price,
   } = meal;
@@ -33,8 +38,39 @@ const MealDetails = () => {
     setSelected(!selected);
   };
 
-  const handleBtnClick = () => {
-    
+  const handleBtnClick = async () => {
+    const requestedMealInfo = {
+      name: meal.title,
+      like: meal.like,
+      rating: meal.like,
+      mealId: meal._id,
+      image: meal.meal_img,
+      userName: user?.displayName,
+      userEmail: user?.email,
+      status: 'Pending'
+    }
+    try {
+      const { data } = await axiosSecure.post(`/requested-meal`, requestedMealInfo)
+      console.log(data);
+      if(data.insertedId) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Requested for meal successfully",
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: `${error}`,
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
   }
 
   if (isLoading) return <LoadSpinner />;

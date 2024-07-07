@@ -8,6 +8,8 @@ import MealDetails from "../pages/MealDetails.jsx/MealDetails";
 import CheckOut from "../pages/CheckOut/CheckOut";
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../layout/Dashboard";
+import RequestedMeals from "../pages/Dasboard/RequestedMeals/RequestedMeals";
+import Profile from "../pages/Dasboard/Profile/Profile";
 
 
 
@@ -52,7 +54,14 @@ const router = createBrowserRouter([
         <Dashboard />
     </PrivateRoute>,
     children: [
-        
+        {
+            path: 'requested-meals',
+            element: <RequestedMeals />
+        },
+        {
+            path: 'profile',
+            element: <Profile />
+        }
     ]
   }
 ]);

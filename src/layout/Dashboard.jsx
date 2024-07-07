@@ -1,12 +1,15 @@
-import { Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
 const Dashboard = () => {
-    const { user } = useAuth();
-  return (
-    <div className="flex max-w-screen-2xl mx-auto md:px-8 lg:px-16 xl:px-24">
-      <aside className="flex flex-col w-1/3 md:w-1/5  min-h-screen px-1 md:px-4 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
+  const { user } = useAuth();
+  const location = useLocation();
 
+  const isActive = (path) => location.pathname === path;
+
+  return (
+    <div className="flex gap-3 md:gap-8 lg:gap-12 max-w-screen-2xl mx-auto md:px-8 lg:px-16 xl:px-24">
+      <aside className="flex flex-col w-[110px] md:w-1/5 min-h-screen px-1 md:px-4 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700 relative">
         <div className="flex flex-col items-center mt-6 -mx-2">
           <img
             className="object-cover size-20 md:mx-2 rounded-full"
@@ -20,37 +23,61 @@ const Dashboard = () => {
 
         <div className="flex flex-col justify-between flex-1 mt-6">
           <nav>
-            <a
-              className="flex items-center py-2 text-gray-700 bg-gray-100 rounded-lg dark:bg-gray-800 dark:text-gray-200"
-              href="#"
+            <Link
+              to="/dashboard"
+              className={`flex items-center py-2 ${
+                isActive("/dashboard")
+                  ? "text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-gray-200"
+                  : "text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+              }`}
             >
-
               <span className="mx-2 md:mx-4 font-medium">Dashboard</span>
-            </a>
+            </Link>
 
-            <a
-              className="flex items-center py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
-              href="#"
+            <Link
+              to="/dashboard/requested-meals"
+              className={`flex items-center py-2 mt-5 ${
+                isActive("/dashboard/requested-meals")
+                  ? "text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-gray-200"
+                  : "text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+              }`}
             >
+              <span className="mx-2 md:mx-4 font-medium">Requested Meals</span>
+            </Link>
 
-              <span className="mx-2 md:mx-4 font-medium">Accounts</span>
-            </a>
-
-            <a
-              className="flex items-center py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
-              href="#"
+            <Link
+              to="/dashboard/profile"
+              className={`flex items-center py-2 mt-5 ${
+                isActive("/dashboard/tickets")
+                  ? "text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-gray-200"
+                  : "text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+              }`}
             >
-              <span className="mx-2 md:mx-4 font-medium">Tickets</span>
-            </a>
+              <span className="mx-2 md:mx-4 font-medium">Profile</span>
+            </Link>
 
-            <a
-              className="flex items-center py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
-              href="#"
+            <Link
+              to="/dashboard/settings"
+              className={`flex items-center py-2 mt-5 ${
+                isActive("/dashboard/settings")
+                  ? "text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-gray-200"
+                  : "text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+              }`}
             >
               <span className="mx-2 md:mx-4 font-medium">Settings</span>
-            </a>
+            </Link>
           </nav>
         </div>
+        <Link
+              to="/"
+              className={`flex items-center py-2 mt-5 ${
+                isActive("/dashboard/settings")
+                  ? "text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-gray-200"
+                  : "text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+              }`}
+            >
+              <span className="mx-2 md:mx-4 font-medium">Home</span>
+            </Link>
       </aside>
       <Outlet />
     </div>
