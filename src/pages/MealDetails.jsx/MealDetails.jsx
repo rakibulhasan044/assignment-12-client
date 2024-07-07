@@ -7,15 +7,18 @@ import Star from "../../components/Star/Star";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import useUserDetails from "../../hooks/useUserDetails";
 
 const MealDetails = () => {
-  const [selected, setSelected] = useState(false);
+  const [selected, setSelected] = useState();
   const { id } = useParams();
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
+  const [userInfo, isLoading ] = useUserDetails()
 
-  const { data: meal = {}, isLoading, refetch } = useQuery({
+
+  const { data: meal = {}, isLoading: ghur, refetch } = useQuery({
     queryKey: ["meal", id],
     queryFn: async () => {
       const { data } = await axiosPublic.get(`/meal/${id}`);
@@ -29,7 +32,6 @@ const MealDetails = () => {
     post_time,
     rating,
     likes,
-    //category,
     title,
     price,
   } = meal;
@@ -45,7 +47,7 @@ const MealDetails = () => {
   },[id, user, axiosSecure])
 
   const handleRadioChange = async () => {
-    if(user) {
+    if(user && userInfo.package !== 'bronze') {
       try {
         if(!selected) {
           await axiosSecure.post(`/like/${id}`, {email: user.email})
@@ -70,7 +72,7 @@ const MealDetails = () => {
       Swal.fire({
         position: "top-end",
         icon: "warning",
-        title: "Please log in to like this meal",
+        title: "Please activate package to like this meal",
         showConfirmButton: false,
         timer: 1500
       });
@@ -79,41 +81,52 @@ const MealDetails = () => {
   };
 
   const handleBtnClick = async () => {
-    const requestedMealInfo = {
-      name: meal.title,
-      like: meal.like,
-      rating: meal.like,
-      mealId: meal._id,
-      image: meal.meal_img,
-      userName: user?.displayName,
-      userEmail: user?.email,
-      status: 'Pending'
-    }
-    try {
-      const { data } = await axiosSecure.post(`/requested-meal`, requestedMealInfo)
-      console.log(data);
-      if(data.insertedId) {
+    if(userInfo.package != 'bronze') {
+      const requestedMealInfo = {
+        name: meal.title,
+        like: meal.like,
+        rating: meal.like,
+        mealId: meal._id,
+        image: meal.meal_img,
+        userName: user?.displayName,
+        userEmail: user?.email,
+        status: 'Pending'
+      }
+      try {
+        const { data } = await axiosSecure.post(`/requested-meal`, requestedMealInfo)
+        console.log(data);
+        if(data.insertedId) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Requested for meal successfully",
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
+      } catch (error) {
+        console.log(error);
         Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Requested for meal successfully",
+          position: "top-end",
+          icon: "error",
+          title: `${error}`,
           showConfirmButton: false,
           timer: 1500
         });
       }
-    } catch (error) {
-      console.log(error);
+    }
+    if(userInfo.package === 'bronze') {
       Swal.fire({
         position: "top-end",
-        icon: "error",
-        title: `${error}`,
+        icon: "warning",
+        title: 'Please upgrade Your package for requesting meals',
         showConfirmButton: false,
         timer: 1500
       });
     }
   }
 
-  if (isLoading) return <LoadSpinner />;
+  if (isLoading || ghur) return <LoadSpinner />;
 
   return (
     <div>
