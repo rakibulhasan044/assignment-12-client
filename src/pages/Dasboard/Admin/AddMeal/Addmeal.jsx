@@ -56,9 +56,12 @@ const Addmeal = () => {
   };
 
   return (
-    <form
+    <div className="w-full">
+        <h2 className="py-5 text-xl font-semibold text-center text-purple-700">Add a New Item</h2>
+        <hr className="pt-5"/>
+        <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col md:flex-row  w-full md:gap-5"
+      className="flex flex-col md:flex-row md:gap-5 w-full"
     >
       <div className="flex-1">
         <label className="form-control">
@@ -216,6 +219,7 @@ const Addmeal = () => {
         </button>
       </div>
     </form>
+    </div>
   );
 };
 

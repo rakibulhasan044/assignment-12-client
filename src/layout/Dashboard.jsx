@@ -10,7 +10,7 @@ const Dashboard = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <div className="flex gap-3 md:gap-8 lg:gap-12 min-w-screen-2xl mx-auto md:px-8 lg:px-16 xl:px-24">
+    <div className="flex gap-3 md:gap-5 lg:gap-12 min-w-screen-2xl mx-auto md:px-5 lg:px-12 xl:px-20">
       <aside className="flex flex-col w-[110px] md:w-1/5 lg:w-4/12 min-h-screen px-1 md:px-4 py-8 bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700 relative">
         <div className="flex flex-col items-center mt-6 -mx-2">
           <img
