@@ -10,6 +10,7 @@ import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../layout/Dashboard";
 import RequestedMeals from "../pages/Dasboard/RequestedMeals/RequestedMeals";
 import Profile from "../pages/Dasboard/Profile/Profile";
+import PaymentPage from "../pages/Dasboard/PaymentPage.jsx/PaymentPage";
 
 
 
@@ -45,7 +46,8 @@ const router = createBrowserRouter([
             element: <PrivateRoute>
                 <CheckOut />
             </PrivateRoute>
-        }
+        },
+        
     ]
   },
   {
@@ -61,6 +63,12 @@ const router = createBrowserRouter([
         {
             path: 'profile',
             element: <Profile />
+        },
+        {
+            path: 'payment',
+            element: <PrivateRoute>
+                <PaymentPage />
+            </PrivateRoute>
         }
     ]
   }

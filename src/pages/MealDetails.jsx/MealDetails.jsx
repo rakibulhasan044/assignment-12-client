@@ -8,6 +8,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import useUserDetails from "../../hooks/useUserDetails";
+import moment from 'moment';
 
 const MealDetails = () => {
   const [selected, setSelected] = useState();
@@ -139,7 +140,7 @@ const MealDetails = () => {
           <p className="text-xl font-semibold">distributor: {admin_name}</p>
           <p className="text-2xl font-extrabold text-green-500">${price}</p>
           <div className="flex gap-10 text-xl">
-            <p>Added: {post_time}</p>
+            <p>Added: {moment(post_time).format("MMM Do YY") } </p>
             <div className="flex gap-5">
               <div className="rating gap-1">
                 <input
