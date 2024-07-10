@@ -10,7 +10,8 @@ const RequestedMeals = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  const [isOpen, setIsOpen] = useState(false)
+  const [selectedItem, setSelectedItem] = useState(null);
+
   const { data: requestedMeals = [], isLoading, refetch } = useQuery({
     queryKey: ["requestedMeals", user.email],
     queryFn: async () => {
@@ -19,7 +20,7 @@ const RequestedMeals = () => {
     },
   });
 
-  if(isLoading) return <LoadSpinner />
+  if (isLoading) return <LoadSpinner />;
 
   return (
     <div className="w-full">
@@ -37,12 +38,12 @@ const RequestedMeals = () => {
             </tr>
           </thead>
           <tbody>
-            {requestedMeals.map((item, index) => (
-              <tr key={index}>
+            {requestedMeals.map((item) => (
+              <tr key={item._id}>
                 <td>
                   <div className="avatar">
                     <div className="mask mask-squircle h-12 w-12">
-                      <img src={item.image} />
+                      <img src={item.image} alt={item.name} />
                     </div>
                   </div>
                 </td>
@@ -53,7 +54,7 @@ const RequestedMeals = () => {
                 </td>
                 <td
                   className={`${
-                    item.status === "Deliverd"
+                    item.status === "Delivered"
                       ? "text-green-500"
                       : "text-yellow-500"
                   }`}
@@ -62,18 +63,25 @@ const RequestedMeals = () => {
                 </td>
                 <td>
                   <button
-                  onClickCapture={() => setIsOpen(true)}
+                    onClick={() => setSelectedItem(item)}
                     className="btn btn-ghost btn-xs"
                   >
                     <RiDeleteBin5Fill size={25} className="text-red-700" />
                   </button>
-                  <DeleteRequestModal isOpen={isOpen} setIsOpen={setIsOpen} item={item} refetch={refetch}/>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+      {selectedItem && (
+        <DeleteRequestModal
+          isOpen={!!selectedItem}
+          setIsOpen={() => setSelectedItem(null)}
+          item={selectedItem}
+          refetch={refetch}
+        />
+      )}
     </div>
   );
 };
