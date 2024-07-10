@@ -4,13 +4,14 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { useState } from "react";
 import DeleteRequestModal from "../../../components/Modal/DeleteRequestModal";
+import LoadSpinner from "../../../components/Spiner/LoadSpinner";
 
 const RequestedMeals = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
   const [isOpen, setIsOpen] = useState(false)
-  const { data: requestedMeals = [], refetch } = useQuery({
+  const { data: requestedMeals = [], isLoading, refetch } = useQuery({
     queryKey: ["requestedMeals", user.email],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/requested-meal/${user.email}`);
@@ -18,8 +19,10 @@ const RequestedMeals = () => {
     },
   });
 
+  if(isLoading) return <LoadSpinner />
+
   return (
-    <div>
+    <div className="w-full">
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}

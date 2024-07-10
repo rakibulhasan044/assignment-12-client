@@ -1,17 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import moment from "moment";
 import LoadSpinner from "../../../components/Spiner/LoadSpinner";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const PaymentPage = () => {
   const { user } = useAuth();
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
 
   const { data: payments = [], isLoading } = useQuery({
     queryKey: ["payments", user?.email],
     queryFn: async () => {
-      const { data } = await axiosPublic.get(`/my-payments/${user.email}`);
+      const { data } = await axiosSecure.get(`/my-payments/${user.email}`);
       return data;
     },
   });

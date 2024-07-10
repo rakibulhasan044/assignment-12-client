@@ -11,6 +11,14 @@ import Dashboard from "../layout/Dashboard";
 import RequestedMeals from "../pages/Dasboard/RequestedMeals/RequestedMeals";
 import Profile from "../pages/Dasboard/Profile/Profile";
 import PaymentPage from "../pages/Dasboard/PaymentPage.jsx/PaymentPage";
+import AdminDashboard from "../pages/Dasboard/Admin/AdminDashboard.jsx/AdminDashboard";
+import Addmeal from "../pages/Dasboard/Admin/AddMeal/Addmeal";
+import ManageUsers from "../pages/Dasboard/Admin/ManageUsers/ManageUsers";
+import AllMeals from "../pages/Dasboard/Admin/AllMeals/AllMeals";
+import Allreviews from "../pages/Dasboard/Admin/AllReviews/Allreviews";
+import ServeMeals from "../pages/Dasboard/Admin/ServeMeals/ServeMeals";
+import UpcomingMealsManage from "../pages/Dasboard/Admin/UpcomingMealsManage/UpcomingMealsManage";
+import AdminProfile from "../pages/Dasboard/Admin/AdminProfile/AdminProfile";
 
 
 
@@ -69,7 +77,41 @@ const router = createBrowserRouter([
             element: <PrivateRoute>
                 <PaymentPage />
             </PrivateRoute>
+        },
+        {
+            path: 'admin-dashboard',
+            element: <AdminDashboard/>
+        },
+        {
+            path: 'add-meal',
+            element: <Addmeal />
+        },
+        {
+            path: 'manage-users',
+            element: <ManageUsers />
+        },
+        {
+            path: 'all-meals',
+            element: <AllMeals />
+        },
+        {
+            path: 'all-reviews',
+            element: <Allreviews />
+        },
+        {
+            path: 'serve-meals',
+            element: <ServeMeals />
+        },
+        {
+            path: 'manage-upcoming-meals',
+            element: <UpcomingMealsManage />
+        },
+        {
+            path: 'admin-profile',
+            element: <AdminProfile />
+
         }
+
     ]
   }
 ]);

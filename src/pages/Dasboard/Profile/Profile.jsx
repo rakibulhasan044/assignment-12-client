@@ -13,8 +13,8 @@ const Profile = () => {
   if (isLoading || loading) return <LoadSpinner />;
 
   return (
-    <div className="flex justify-center items-center h-screen w-5/6 pr-4">
-      <div className="bg-white shadow-lg rounded-2xl ">
+    <div className="flex justify-center items-center h-screen pr-4 w-full">
+      <div className="bg-white shadow-lg rounded-2xl">
         <img
           alt="profile"
           src="https://wallpapercave.com/wp/wp10784415.jpg"
