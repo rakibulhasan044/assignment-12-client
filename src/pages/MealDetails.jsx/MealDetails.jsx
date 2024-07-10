@@ -47,7 +47,7 @@ const MealDetails = () => {
   },[id, user, axiosSecure])
 
   const handleRadioChange = async () => {
-    if(user && userInfo.package !== 'bronze') {
+    if(user && userInfo.package !== 'Bronze') {
       try {
         if(!selected) {
           await axiosSecure.post(`/like/${id}`, {email: user.email})
@@ -81,17 +81,19 @@ const MealDetails = () => {
   };
 
   const handleBtnClick = async () => {
-    if(userInfo.package != 'bronze') {
+    if(userInfo.package != 'Bronze') {
       const requestedMealInfo = {
         name: meal.title,
-        like: meal.like,
-        rating: meal.like,
+        like: meal.likes,
+        rating: meal.rating,
         mealId: meal._id,
         image: meal.meal_img,
         userName: user?.displayName,
         userEmail: user?.email,
+        price: meal.price,
         status: 'Pending'
       }
+      
       try {
         const { data } = await axiosSecure.post(`/requested-meal`, requestedMealInfo)
         console.log(data);
@@ -115,7 +117,7 @@ const MealDetails = () => {
         });
       }
     }
-    if(userInfo.package === 'bronze') {
+    if(userInfo.package === 'Bronze') {
       Swal.fire({
         position: "top-end",
         icon: "warning",

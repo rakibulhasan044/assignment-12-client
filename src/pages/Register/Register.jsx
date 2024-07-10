@@ -31,7 +31,7 @@ const Register = () => {
           name: data.name,
           email: data.email,
           photo: imageUrl,
-          package: 'bronze',
+          package: 'Bronze',
           role: 'user'
         }
 
@@ -77,7 +77,7 @@ const Register = () => {
         name: currentUser?.displayName,
         email: currentUser?.email,
         photo: currentUser?.photoURL,
-        package: 'bronze',
+        package: 'Bronze',
         role: 'user'
       };
 

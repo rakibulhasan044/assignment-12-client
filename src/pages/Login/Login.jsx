@@ -11,7 +11,7 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 const Register = () => {
 
   const [show, setShow] = useState(false);
-  const { user, googleSignIn, signIn } = useAuth();
+  const { googleSignIn, signIn } = useAuth();
   const axiosPublic = useAxiosPublic();
   const location = useLocation();
   const navigate = useNavigate()
@@ -48,7 +48,7 @@ const Register = () => {
         name: currentUser?.displayName,
         email: currentUser?.email,
         photo: currentUser?.photoURL,
-        package: 'bronze',
+        package: 'Bronze',
         role: 'user'
       };
 

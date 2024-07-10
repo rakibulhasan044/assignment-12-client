@@ -9,7 +9,7 @@ const Dashboard = () => {
 
   return (
     <div className="flex gap-3 md:gap-8 lg:gap-12 max-w-screen-2xl mx-auto md:px-8 lg:px-16 xl:px-24">
-      <aside className="flex flex-col w-[110px] md:w-1/5 min-h-screen px-1 md:px-4 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700 relative">
+      <aside className="flex flex-col w-[110px] md:w-1/5 min-h-screen px-1 md:px-4 py-8 bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700 relative">
         <div className="flex flex-col items-center mt-6 -mx-2">
           <img
             className="object-cover size-20 md:mx-2 rounded-full"
