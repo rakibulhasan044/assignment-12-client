@@ -5,6 +5,7 @@ import { RiDeleteBin5Fill } from "react-icons/ri";
 import { useState } from "react";
 import DeleteRequestModal from "../../../components/Modal/DeleteRequestModal";
 import LoadSpinner from "../../../components/Spiner/LoadSpinner";
+import { BiSolidMessageEdit } from "react-icons/bi";
 
 const RequestedMeals = () => {
   const { user } = useAuth();
@@ -50,7 +51,8 @@ const RequestedMeals = () => {
                 <td>{item.name}</td>
                 <td>{item.like}</td>
                 <td>
-                  <button className="btn btn-ghost btn-xs">details</button>
+                  <button className="btn btn-ghost btn-xs"><BiSolidMessageEdit size={25}
+                  className="text-orange-500" /></button>
                 </td>
                 <td
                   className={`${

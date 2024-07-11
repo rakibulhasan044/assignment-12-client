@@ -144,9 +144,16 @@ const Dashboard = () => {
             >
               <span className="mx-2 md:mx-4 font-medium">Requested Meals</span>
             </Link>
-
-          
-
+            <Link
+              to="/dashboard/my-reviews"
+              className={`flex items-center py-2 mt-5 ${
+                isActive("/dashboard/settings")
+                  ? "text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-gray-200"
+                  : "text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+              }`}
+            >
+              <span className="mx-2 md:mx-4 font-medium">My Reviews</span>
+            </Link>
             <Link
               to="/dashboard/payment"
               className={`flex items-center py-2 mt-5 ${

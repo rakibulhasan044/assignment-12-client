@@ -1,16 +1,3 @@
-// import { FaStar } from "react-icons/fa";
-
-// const Star = ({rating}) => {
-//     return [...Array(5)].map((_, index) => (
-//         <FaStar
-//           key={index}
-//           size={25}
-//           className={index < rating ? "text-yellow-500" : "text-gray-300"}
-//         />
-//       ));
-// };
-
-// export default Star;
 
 import { FaStar, FaStarHalf } from 'react-icons/fa';
 import PropTypes from 'prop-types';

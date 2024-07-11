@@ -20,6 +20,7 @@
     "axios": "^1.7.2",
     "firebase": "^10.12.2",
     "localforage": "^1.10.0",
+    "lodash": "^4.17.21",
     "lottie-react": "^2.4.0",
     "match-sorter": "^6.3.4",
     "moment": "^2.30.1",

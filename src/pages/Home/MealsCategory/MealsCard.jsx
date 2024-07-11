@@ -5,14 +5,18 @@ const MealsCard = ({ item }) => {
   const { _id, meal_img, rating, title, price } = item;
 
   return (
-    <div className="bg-base-100 shadow-xl p-2 rounded-xl">
+    <div className="bg-base-100 shadow-xl p-2 rounded-xl mt-auto">
       <figure>
         <img className=" rounded-md" src={meal_img} alt="Shoes" />
       </figure>
       <div className="py-2">
         <h2 className="card-title">{title}</h2>
         <div className="flex items-center gap-10 py-2">
-          <p>Rating: {rating}</p>
+          <p>
+            {
+              rating === 0? 'No rating yet' : <>Rating: {rating}</>
+            }
+          </p>
           <p className="text-xl font-bold text-red-700">${price}</p>
         </div>
       </div>

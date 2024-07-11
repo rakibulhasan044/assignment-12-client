@@ -25,7 +25,8 @@ const ManageUsers = () => {
   if (isLoading) return <LoadSpinner />;
 
   return (
-    <div>
+    <div className="w-full pt-5">
+      <h2 className="text-center text-green-500 text-xl font-semibold">Manage All user</h2>
       <div className="overflow-x-auto">
         <table className="table">
           <thead>

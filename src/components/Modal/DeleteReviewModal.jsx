@@ -1,14 +1,14 @@
 import { Button, Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import PropTypes from "prop-types";
 import Swal from "sweetalert2";
+import PropTypes from "prop-types";
 
-const MakeAdminModal = ({ isOpen, setIsOpen, user, refetch }) => {
+const DeleteReviewModal = ({ isOpen, setIsOpen, item, refetch }) => {
   const axiosSecure = useAxiosSecure();
 
-  const makeAdmin = async (id) => {
-    const { data } = await axiosSecure.patch(`/user/admin/${id}`);
-    if (data.modifiedCount > 0) {
+  const handleReviewDelete = async (id) => {
+    const { data } = await axiosSecure.delete(`/review/${id}`);
+    if (data.deletedCount) {
       refetch();
       Swal.fire({
         position: "center",
@@ -20,7 +20,6 @@ const MakeAdminModal = ({ isOpen, setIsOpen, user, refetch }) => {
     }
     setIsOpen(false);
   };
-
   return (
     <Dialog
       open={isOpen}
@@ -38,16 +37,17 @@ const MakeAdminModal = ({ isOpen, setIsOpen, user, refetch }) => {
               as="h3"
               className="font-medium text-white text-center text-xl"
             >
-              Do you want to make this user an admin?
+              Do you want to delete thid review?
             </DialogTitle>
-            <p className="mt-2 text-white/50 text-xl">Name: {user.name}</p>
-            <p className="text-white/50 text-xl">Email: {user.email}</p>
+            <p className="mt-2 text-white/50 text-xl text-center">
+              Item name: {item?.title}
+            </p>
             <div className="flex justify-between mt-4 px-10">
               <Button
                 className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
-                onClick={() => makeAdmin(user._id)}
+                onClick={() => handleReviewDelete(item._id)}
               >
-                Yes, make admin
+                Yes, delete
               </Button>
               <Button
                 className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
@@ -63,11 +63,11 @@ const MakeAdminModal = ({ isOpen, setIsOpen, user, refetch }) => {
   );
 };
 
-MakeAdminModal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  setIsOpen: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
-  refetch: PropTypes.func.isRequired,
+DeleteReviewModal.propTypes = {
+  isOpen: PropTypes.bool,
+  setIsOpen: PropTypes.func,
+  item: PropTypes.object,
+  refetch: PropTypes.func,
 };
 
-export default MakeAdminModal;
+export default DeleteReviewModal;

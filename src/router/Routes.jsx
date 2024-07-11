@@ -19,6 +19,7 @@ import Allreviews from "../pages/Dasboard/Admin/AllReviews/Allreviews";
 import ServeMeals from "../pages/Dasboard/Admin/ServeMeals/ServeMeals";
 import UpcomingMealsManage from "../pages/Dasboard/Admin/UpcomingMealsManage/UpcomingMealsManage";
 import AdminProfile from "../pages/Dasboard/Admin/AdminProfile/AdminProfile";
+import MyReviews from "../pages/Dasboard/MyReviews/MyReviews";
 
 
 
@@ -109,7 +110,10 @@ const router = createBrowserRouter([
         {
             path: 'admin-profile',
             element: <AdminProfile />
-
+        },
+        {
+            path: 'my-reviews',
+            element: <MyReviews />
         }
 
     ]

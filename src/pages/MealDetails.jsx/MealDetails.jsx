@@ -9,9 +9,14 @@ import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import useUserDetails from "../../hooks/useUserDetails";
 import moment from 'moment';
+import { FaStar } from "react-icons/fa6";
 
 const MealDetails = () => {
-  const [selected, setSelected] = useState();
+
+  const [selected, setSelected] = useState(false);
+  const [star, setStar] = useState(0);
+  const [hoverStar, setHoverStar] = useState(0);
+  
   const { id } = useParams();
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
@@ -27,6 +32,7 @@ const MealDetails = () => {
     },
   });
 
+
   const {
     meal_img,
     admin_name,
@@ -35,6 +41,7 @@ const MealDetails = () => {
     likes,
     title,
     price,
+    reviews_count
   } = meal;
 
   useEffect(() => {
@@ -129,13 +136,53 @@ const MealDetails = () => {
     }
   }
 
+  const handleReview = async (e, id) => {
+    e.preventDefault();
+    const form = e.target;
+    const text = form.text.value;
+    const name = user?.displayName;
+    const email = user?.email;
+    const  rating = star;
+    const mealId = id;
+    
+    const reviewInfo = {
+      name,
+      email,
+      rating,
+      text,
+      mealId,
+      title
+    }
+
+    if (star > 0 && text.length > 0) {
+      await axiosSecure.post(`/review`, reviewInfo);
+      await axiosSecure.put(`/review/${id}`)
+      refetch()
+      setStar(0);
+      Swal.fire({
+        title: "Review Submitted",
+        text: "Thank you",
+        icon: "success",
+      });
+    
+    } else {
+      Swal.fire({
+        title: "Please fill in the star rating & write a comment",
+        text: "Thank you",
+        icon: "error",
+      });
+    }
+
+    form.reset()
+  }
+
   if (isLoading || ghur) return <LoadSpinner />;
 
   return (
     <div>
-      <div className=" flex flex-col md:flex-row md:gap-10 lg:gap-20">
-        <img className="md:w-1/2" src={meal_img} alt="" />
-        <div className="flex-1 space-y-2">
+      <div className=" flex flex-col md:flex-row gap-3 md:gap-10 lg:gap-20">
+        <img className="md:w-3/5 lg:w-1/2 rounded-xl" src={meal_img} alt="" />
+        <div className=" space-y-2">
           <h3 className="md:text-2xl lg:text-4xl font-bold ">{title}</h3>
           <p className="text-xl font-semibold">distributor: {admin_name}</p>
           <p className="text-2xl font-extrabold text-green-500">${price}</p>
@@ -165,9 +212,32 @@ const MealDetails = () => {
            >Request Meal</button>
         </div>
       </div>
-      <div className="mt-10">
+      <div className="mt-10 flex gap-13 items-center">
       <Star rating={rating} />
+      <span className="text-xl">({reviews_count})</span>
       </div>
+      <h3 className="text-xl text-gray-400 py-2 font-medium">Give us your feedback here</h3>
+      <form
+      onSubmit={(e) => handleReview(e, id)}
+       className="border p-5 lg:w-1/2 rounded-lg border-info space-y-2">
+        <h2 className="text-center text-xl font-semibold">Rate us</h2>
+      
+      <div className="cursor-ponter flex gap-1">
+        {[...Array(5)].map((_, index) => (
+          <span
+          key={index}
+          className={`${index + 1 <= star ? 'text-yellow-500' : ''}
+          ${index + 1 <= hoverStar ? 'text-yellow-500' : 'text-gray-300'} text-3xl`}
+          onMouseOver={() => setHoverStar(index + 1)}
+          onMouseOut={() => setHoverStar(0)}
+          onClick={() => setStar(index + 1)}>
+           <FaStar />
+          </span>
+        ))}
+      </div>
+      <textarea className="textarea textarea-bordered w-full" placeholder="Write here" name='text'></textarea>
+      <button type="submit" className="btn btn-outline btn-success">Submit</button>
+      </form>
     </div>
   );
 };

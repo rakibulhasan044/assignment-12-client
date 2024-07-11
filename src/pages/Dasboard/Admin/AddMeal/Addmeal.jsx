@@ -30,6 +30,10 @@ const Addmeal = () => {
       title: data.title,
       price: data.price,
       likes: data.likes,
+      reviews_count: 0,
+      admin_email: data.email,
+      description: data.description,
+      ingredients: data.ingredients
     };
 
     const res = await axiosSecure.post(`/meal`, mealInfo)

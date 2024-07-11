@@ -14,7 +14,7 @@ const Profile = () => {
 
   return (
     <div className="flex justify-center items-center h-screen pr-4 w-full">
-      <div className="bg-white shadow-lg rounded-2xl">
+      <div className="bg-white shadow-lg rounded-2xl lg:w-2/3 xl:w-1/2">
         <img
           alt="profile"
           src="https://wallpapercave.com/wp/wp10784415.jpg"

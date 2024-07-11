@@ -6,7 +6,7 @@ import CategoryListbox from "../../components/CategoryListbox/CategoryListbox";
 import LoadSpinner from "../../components/Spiner/LoadSpinner";
 
 const Meals = () => {
-  const limit = 6;
+  const limit = 9;
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState("");
   const [priceRange, setPriceRange] = useState("");
@@ -68,7 +68,7 @@ const Meals = () => {
         dataLength={items.length}
         next={fetchMoreData}
         hasMore={items.length < totalMealsCount}
-        loader={<LoadSpinner />}
+        loader={<LoadSpinner/>}
         endMessage={
           isLoading ? (
             <LoadSpinner />
