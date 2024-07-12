@@ -10,7 +10,7 @@ const MealsCategory = () => {
   const [meals, , isLoading] = useMeals(0);
   
 
-  const categories = ["breakfast", "lunch", "snacks", "dinner"];
+  const categories = ["breakfast", "lunch", "snacks", "dinner", 'upcoming'];
 
   const filterMealsByCategory = (category) => {
     return  meals.filter((item) => item.category === category);

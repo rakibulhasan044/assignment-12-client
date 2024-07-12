@@ -37,20 +37,20 @@ const DeleteReviewModal = ({ isOpen, setIsOpen, item, refetch }) => {
               as="h3"
               className="font-medium text-white text-center text-xl"
             >
-              Do you want to delete thid review?
+              Do you want to delete this review?
             </DialogTitle>
             <p className="mt-2 text-white/50 text-xl text-center">
               Item name: {item?.title}
             </p>
             <div className="flex justify-between mt-4 px-10">
               <Button
-                className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
+                className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold  shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700 text-red-600"
                 onClick={() => handleReviewDelete(item._id)}
               >
                 Yes, delete
               </Button>
               <Button
-                className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
+                className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold  shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700 text-green-500"
                 onClick={() => setIsOpen(false)}
               >
                 Cancel

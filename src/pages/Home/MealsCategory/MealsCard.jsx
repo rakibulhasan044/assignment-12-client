@@ -34,7 +34,7 @@ MealsCard.propTypes = {
     meal_img: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-    price: PropTypes.number,
+    price: PropTypes.node.isRequired,
   }).isRequired,
 };
 

@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 import useUserDetails from "../../hooks/useUserDetails";
 import moment from 'moment';
 import { FaStar } from "react-icons/fa6";
+import SpecificReviews from "../../components/SpecificReviews/SpecificReviews";
 
 const MealDetails = () => {
 
@@ -89,7 +90,7 @@ const MealDetails = () => {
   };
 
   const handleBtnClick = async () => {
-    if(userInfo.package != 'Bronze') {
+    if(userInfo.package != 'Bronze' || meal.category === 'upcoming') {
       const requestedMealInfo = {
         name: meal.title,
         like: meal.likes,
@@ -125,11 +126,11 @@ const MealDetails = () => {
         });
       }
     }
-    if(userInfo.package === 'Bronze') {
+    if(userInfo.package === 'Bronze' || meal.category === 'upcoming') {
       Swal.fire({
         position: "top-end",
         icon: "warning",
-        title: 'Please upgrade Your package for requesting meals',
+        title: 'Please upgrade Your package for requesting meals and upcoming meal cant be requested',
         showConfirmButton: false,
         timer: 1500
       });
@@ -138,6 +139,17 @@ const MealDetails = () => {
 
   const handleReview = async (e, id) => {
     e.preventDefault();
+
+    if(meal.category === 'upcoming') {
+      return Swal.fire({
+        position: "top-end",
+        icon: "warning",
+        title: 'You can not give review for Upcoming meals',
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
+    
     const form = e.target;
     const text = form.text.value;
     const name = user?.displayName;
@@ -151,7 +163,9 @@ const MealDetails = () => {
       rating,
       text,
       mealId,
-      title
+      title,
+      date: new Date(),
+      photo: user.photoURL
     }
 
     if (star > 0 && text.length > 0) {
@@ -187,7 +201,7 @@ const MealDetails = () => {
           <p className="text-xl font-semibold">distributor: {admin_name}</p>
           <p className="text-2xl font-extrabold text-green-500">${price}</p>
           <div className="flex gap-10 text-xl">
-            <p>Added: {moment(post_time).format("MMM Do YY") } </p>
+            <p>Added: {moment(post_time).format("MMM Do YY") || post_time} </p>
             <div className="flex gap-5">
               <div className="rating gap-1">
                 <input
@@ -216,6 +230,7 @@ const MealDetails = () => {
       <Star rating={rating} />
       <span className="text-xl">({reviews_count})</span>
       </div>
+      <SpecificReviews id={id} />
       <h3 className="text-xl text-gray-400 py-2 font-medium">Give us your feedback here</h3>
       <form
       onSubmit={(e) => handleReview(e, id)}

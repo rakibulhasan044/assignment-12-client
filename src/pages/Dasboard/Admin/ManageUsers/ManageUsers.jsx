@@ -7,6 +7,8 @@ import MakeAdminModal from "../../../../components/Modal/MakeAdminModal";
 const ManageUsers = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [page, setPage] = useState(1);
+  const usersPerPage = 10;
   const axiosSecure = useAxiosSecure();
 
   const { data: users, isLoading, refetch } = useQuery({
@@ -24,6 +26,11 @@ const ManageUsers = () => {
 
   if (isLoading) return <LoadSpinner />;
 
+  const totalPages = Math.ceil(users.length / usersPerPage);
+  const indexOfLastUser = page * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+
   return (
     <div className="w-full pt-5">
       <h2 className="text-center text-green-500 text-xl font-semibold">Manage All user</h2>
@@ -39,9 +46,9 @@ const ManageUsers = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user, index) => (
+            {currentUsers.map((user, index) => (
               <tr key={user._id}>
-                <th>{index + 1}</th>
+                <th>{indexOfFirstUser + index + 1}</th>
                 <td>
                   <div className="flex items-center gap-3">
                     <div className="avatar flex flex-col gap-2 items-center justify-center">
@@ -71,10 +78,10 @@ const ManageUsers = () => {
                 <th>
                   <p
                     className={`
-                        ${user?.package === "Silver" && "text-[#C0C0C0]"}
-                        ${user?.package === "Gold" && "text-[#FFD700]"}
-                        ${user?.package === "Platinum" && "text-[#e5e4e2]"}
-                        ${user?.package === "Bronze" && "text-[#CD7F32]"}`}
+                      ${user?.package === "Silver" && "text-[#C0C0C0]"}
+                      ${user?.package === "Gold" && "text-[#FFD700]"}
+                      ${user?.package === "Platinum" && "text-[#e5e4e2]"}
+                      ${user?.package === "Bronze" && "text-[#CD7F32]"}`}
                   >
                     {user.package}
                   </p>
@@ -83,6 +90,23 @@ const ManageUsers = () => {
             ))}
           </tbody>
         </table>
+        <div className="flex justify-center mt-4">
+          <button
+            className="btn btn-sm btn-outline btn-info mr-2"
+            onClick={() => setPage(prev => Math.max(prev - 1, 1))}
+            disabled={page === 1}
+          >
+            Previous
+          </button>
+          <span className="mx-2">Page {page} of {totalPages}</span>
+          <button
+            className="btn btn-sm btn-outline btn-info ml-2"
+            onClick={() => setPage(prev => Math.min(prev + 1, totalPages))}
+            disabled={page === totalPages}
+          >
+            Next
+          </button>
+        </div>
       </div>
       {isOpen && currentUser && (
         <MakeAdminModal

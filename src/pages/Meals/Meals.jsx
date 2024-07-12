@@ -18,8 +18,8 @@ const Meals = () => {
   );
   const [items, setItems] = useState([]);
 
-  const options = ["breakfast", "lunch", "snacks", "dinner", "all"];
-  const priceRangeOptions = ["5-10", "10-20", "20-30", "all"];
+  const options = ["breakfast", "lunch", "snacks", "dinner", "upcoming", "all"];
+  const priceRangeOptions = ["0-5","5-10", "10-20", "20-30", "all"];
 
   useEffect(() => {
     if (page === 1) {

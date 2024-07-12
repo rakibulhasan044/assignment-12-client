@@ -1,15 +1,23 @@
-import { useQuery} from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "./useAxiosPublic";
 
-const useMeals = (page, filter, priceRange, limit = 0) => {
+const useMeals = (page = null, filter, priceRange, limit = 0) => {
   const axiosPublic = useAxiosPublic();
 
+  const queryKey = ["meals", filter, priceRange];
+  if (page !== null) {
+    queryKey.push(page);
+  }
+
   const { data: meals = [], isLoading, refetch } = useQuery({
-    queryKey: ["meals", page, filter, priceRange],
+    queryKey,
     queryFn: async () => {
-      const res = await axiosPublic.get("/meals", {
-        params: { limit, page, filter, priceRange }
-      });
+      const params = { filter, priceRange };
+      if (page !== null) {
+        params.page = page;
+        params.limit = limit;
+      }
+      const res = await axiosPublic.get("/meals", { params });
       return res.data;
     },
     keepPreviousData: true,
@@ -27,8 +35,7 @@ const useMeals = (page, filter, priceRange, limit = 0) => {
 
   const totalMealsCount = countData || 0;
 
-  return [ meals, totalMealsCount, isLoading, refetch ];
+  return [meals, totalMealsCount, isLoading, refetch];
 };
 
 export default useMeals;
-
