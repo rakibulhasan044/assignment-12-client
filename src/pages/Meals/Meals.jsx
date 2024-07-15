@@ -17,17 +17,20 @@ const Meals = () => {
     limit
   );
   const [items, setItems] = useState([]);
+  
 
-  const options = ["breakfast", "lunch", "snacks", "dinner", "upcoming", "all"];
+  const options = ["breakfast", "lunch", "snacks", "dinner", "all"];
   const priceRangeOptions = ["0-5","5-10", "10-20", "20-30", "all"];
-
+ 
   useEffect(() => {
+
     if (page === 1) {
       setItems(meals);
     } else {
       setItems((prevItems) => [...prevItems, ...meals])
     }
   }, [meals, page]);
+
 
   useEffect(() => {
     setPage(1);

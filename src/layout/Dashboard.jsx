@@ -1,13 +1,25 @@
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useUserDetails from "../hooks/useUserDetails";
+import { useEffect } from "react";
 
 const Dashboard = () => {
   const { user } = useAuth();
   const [userInfo] = useUserDetails()
   const location = useLocation();
+  const navigate = useNavigate();
 
   const isActive = (path) => location.pathname === path;
+
+  useEffect(() => {
+    if (location.pathname === "/dashboard") {
+      if (userInfo.role === "admin") {
+        navigate("/dashboard/admin-profile");
+      } else {
+        navigate("/dashboard/profile");
+      }
+    }
+  }, [userInfo, location.pathname, navigate]);
 
   return (
     <div className="flex gap-3 md:gap-5 lg:gap-12 min-w-screen-2xl mx-auto md:px-5 lg:px-12 xl:px-20">
@@ -26,7 +38,7 @@ const Dashboard = () => {
         {
           userInfo.role === 'admin' ? <div className="flex flex-col justify-between flex-1 mt-6">
           <nav>
-            <Link
+            {/* <Link
               to="/dashboard/admin-dashboard"
               className={`flex items-center py-2 ${
                 isActive("/dashboard")
@@ -35,7 +47,7 @@ const Dashboard = () => {
               }`}
             >
               <span className="mx-2 md:mx-4 font-medium">Admin Dashboard</span>
-            </Link>
+            </Link> */}
             <Link
               to="/dashboard/admin-profile"
               className={`flex items-center py-2 mt-5 ${
@@ -112,7 +124,7 @@ const Dashboard = () => {
           </nav>
         </div> : <div className="flex flex-col justify-between flex-1 mt-6">
           <nav>
-            <Link
+            {/* <Link
               to="/dashboard"
               className={`flex items-center py-2 ${
                 isActive("/dashboard")
@@ -121,7 +133,7 @@ const Dashboard = () => {
               }`}
             >
               <span className="mx-2 md:mx-4 font-medium">Dashboard</span>
-            </Link>
+            </Link> */}
 
             <Link
               to="/dashboard/profile"

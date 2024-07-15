@@ -1,5 +1,7 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import PropTypes from 'prop-types';
 
 const Dropdown = ({ user, logOut }) => {
   const handleLogOut = async () => {
@@ -40,14 +42,14 @@ const Dropdown = ({ user, logOut }) => {
           </MenuItem>
           <MenuItem>
             {({ active }) => (
-              <button
+              <Link to='/dashboard'
                 className={`group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 ${
                   active ? "bg-white/10" : ""
                 }`}
               >
                 {/* <Square2StackIcon className="h-4 w-4 fill-white/30" /> */}
                 Dashboard
-              </button>
+              </Link>
             )}
           </MenuItem>
           <div className="my-1 h-px bg-white/5" />
@@ -69,5 +71,10 @@ const Dropdown = ({ user, logOut }) => {
     </div>
   );
 };
+
+Dropdown.propTypes = {
+  user: PropTypes.object,
+  logOut: PropTypes.func
+}
 
 export default Dropdown;

@@ -6,6 +6,8 @@ import useAuth from "../../hooks/useAuth";
 import PropTypes from 'prop-types';
 import { ImSpinner } from "react-icons/im";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -18,6 +20,7 @@ const CheckoutForm = ({ closeModal, item, setIsOpen }) => {
   const [clientSecret, setClientSecret] = useState();
   const [cardError, setCardError] = useState('');
   const [processing, setProcessing] = useState(false);
+  const navigate = useNavigate()
 
   useEffect(() => {
     if(item?.price && item?.price > 1) {
@@ -27,7 +30,7 @@ const CheckoutForm = ({ closeModal, item, setIsOpen }) => {
 
   const getClientSecret = async (price) => {
     const { data } = await axiosSecure.post(`/create-payment-intent`, price)
-    console.log(data);
+    // console.log(data);
     setClientSecret(data.clientSecret)
   }
 
@@ -53,7 +56,7 @@ const CheckoutForm = ({ closeModal, item, setIsOpen }) => {
     });
 
     if (error) {
-      console.log("[error]", error);
+      // console.log("[error]", error);
       setCardError(error.message);
       setProcessing(false)
       return
@@ -73,25 +76,34 @@ const CheckoutForm = ({ closeModal, item, setIsOpen }) => {
         },
     })
     if(confirmError) {
-        console.log(confirmError);
+        // console.log(confirmError);
         setCardError(confirmError.message);
         setProcessing(false)
     }
 
     if(paymentIntent.status === 'succeeded') {
         // 1. create payment info object
-        console.log(paymentIntent);
+        // console.log(paymentIntent);
         const paymentInfo = {
             email: user?.email,
             name: user?.displayName,
             transectionId: paymentIntent.id,
             date: new Date(),
         }
-        console.log(paymentInfo);
+        // console.log(paymentInfo);
         // 2.save payment info in booking collection db
         try {
             const {data} = await axiosSecure.post(`/payments`, paymentInfo)
-            console.log(data);
+            navigate('/dashboard/payment')
+            if(data.insertedId) {
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Payment Success",
+                showConfirmButton: false,
+                timer: 1500
+              });
+            }
             try {
               const subscription = {
                 package: item.title

@@ -14,7 +14,7 @@ const MealsCard = ({ item }) => {
         <div className="flex items-center gap-10 py-2">
           <p>
             {
-              rating === 0? 'No rating yet' : <>Rating: {rating}</>
+              rating === 0? 'No rating yet' : <>Rating: {rating.toFixed(2)}</>
             }
           </p>
           <p className="text-xl font-bold text-red-700">${price}</p>

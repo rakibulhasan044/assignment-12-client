@@ -28,7 +28,7 @@ const MealDetails = () => {
   const { data: meal = {}, isLoading: ghur, refetch } = useQuery({
     queryKey: ["meal", id],
     queryFn: async () => {
-      const { data } = await axiosPublic.get(`/meal/${id}`);
+      const { data } = await axiosPublic.get(`/meal/${id}`)
       return data;
     },
   });
@@ -186,7 +186,6 @@ const MealDetails = () => {
         icon: "error",
       });
     }
-
     form.reset()
   }
 

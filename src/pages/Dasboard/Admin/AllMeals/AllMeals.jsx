@@ -9,36 +9,40 @@ import { Link } from "react-router-dom";
 
 const AllMeals = () => {
   const [page, setPage] = useState(1);
-  const [meals, totalMealsCount, isLoading, refetch] = useMeals(page, "", "", 10);
-  const axiosSecure = useAxiosSecure()
+  const [meals, totalMealsCount, isLoading, refetch] = useMeals(
+    page,
+    "",
+    "",
+    10
+  );
+  const axiosSecure = useAxiosSecure();
 
   const totalPages = Math.ceil(totalMealsCount / 10);
 
   const deleteMeal = async (id) => {
     console.log(id);
     Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
-      }).then( async (result) => {
-        if (result.isConfirmed) {
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await axiosSecure.delete(`/meal/${id}`);
+        refetch();
+        Swal.fire({
+          title: "Deleted!",
+          text: "Item has been deleted",
+          icon: "success",
+        });
+      }
+    });
+  };
 
-            await axiosSecure.delete(`/meal/${id}`)
-            refetch()
-          Swal.fire({
-            title: "Deleted!",
-            text: "Item has been deleted",
-            icon: "success"
-          });
-        }
-      });
-  }
-
-  if(isLoading) return <LoadSpinner/>
+  if (isLoading) return <LoadSpinner />;
 
   return (
     <div className="w-full mt-5">
@@ -69,14 +73,23 @@ const AllMeals = () => {
                 <td>{meal.admin_name}</td>
                 <td>
                   <Link to={`/dashboard/update-meal/${meal._id}`}>
-                  <RxUpdate size={22} className="text-orange-500" /></Link>
+                    <RxUpdate size={22} className="text-orange-500" />
+                  </Link>
                 </td>
                 <td>
-                  <MdDelete size={24} className="text-red-700"
-                  onClick={() => deleteMeal(meal._id)} />
+                  <MdDelete
+                    size={24}
+                    className="text-red-700"
+                    onClick={() => deleteMeal(meal._id)}
+                  />
                 </td>
                 <td>
-                  <Link to={`/meal/${meal._id}`} className="btn btn-sm btn-outline btn-info">View</Link>
+                  <Link
+                    to={`/meal/${meal._id}`}
+                    className="btn btn-sm btn-outline btn-info"
+                  >
+                    View
+                  </Link>
                 </td>
               </tr>
             ))}
@@ -85,15 +98,17 @@ const AllMeals = () => {
         <div className="flex justify-center mt-4">
           <button
             className="btn btn-sm btn-outline btn-info mr-2"
-            onClick={() => setPage(prev => Math.max(prev - 1, 1))}
+            onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
             disabled={page === 1}
           >
             Previous
           </button>
-          <span className="mx-2">Page {page} of {totalPages}</span>
+          <span className="mx-2">
+            Page {page} of {totalPages}
+          </span>
           <button
             className="btn btn-sm btn-outline btn-info ml-2"
-            onClick={() => setPage(prev => Math.min(prev + 1, totalPages))}
+            onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
             disabled={page === totalPages}
           >
             Next

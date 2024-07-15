@@ -8,7 +8,6 @@ import useUserDetails from "../../../hooks/useUserDetails";
 const Profile = () => {
   const { user, loading } = useAuth();
   const [userInfo, isLoading] = useUserDetails();
-  console.log(userInfo);
 
   if (isLoading || loading) return <LoadSpinner />;
 

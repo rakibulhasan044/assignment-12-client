@@ -21,6 +21,8 @@ import UpcomingMealsManage from "../pages/Dasboard/Admin/UpcomingMealsManage/Upc
 import AdminProfile from "../pages/Dasboard/Admin/AdminProfile/AdminProfile";
 import MyReviews from "../pages/Dasboard/MyReviews/MyReviews";
 import UpdatePage from "../pages/Dasboard/Admin/AllMeals/UpdatePage";
+import UpcomingMeals from "../pages/UpcomingMeals/UpcomingMeals";
+import AdminRoutes from "./AdminRoutes";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +61,10 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: "upcoming-meals",
+        element: <UpcomingMeals />,
+      },
     ],
   },
   {
@@ -71,11 +77,19 @@ const router = createBrowserRouter([
     children: [
       {
         path: "requested-meals",
-        element: <RequestedMeals />,
+        element: (
+          <PrivateRoute>
+            <RequestedMeals />
+          </PrivateRoute>
+        ),
       },
       {
         path: "profile",
-        element: <Profile />,
+        element: (
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        ),
       },
       {
         path: "payment",
@@ -87,43 +101,99 @@ const router = createBrowserRouter([
       },
       {
         path: "admin-dashboard",
-        element: <AdminDashboard />,
+        element: (
+          <PrivateRoute>
+            <AdminDashboard />
+          </PrivateRoute>
+        ),
       },
       {
         path: "add-meal",
-        element: <Addmeal />,
+        element: (
+          <AdminRoutes>
+            <PrivateRoute>
+              <Addmeal />
+            </PrivateRoute>
+          </AdminRoutes>
+        ),
       },
       {
         path: "manage-users",
-        element: <ManageUsers />,
+        element: (
+          <AdminRoutes>
+            <PrivateRoute>
+              <ManageUsers />
+            </PrivateRoute>
+          </AdminRoutes>
+        ),
       },
       {
         path: "all-meals",
-        element: <AllMeals />,
+        element: (
+          <AdminRoutes>
+            <PrivateRoute>
+              <AllMeals />
+            </PrivateRoute>
+          </AdminRoutes>
+        ),
       },
       {
         path: "all-reviews",
-        element: <Allreviews />,
+        element: (
+          <AdminRoutes>
+            <PrivateRoute>
+              <Allreviews />
+            </PrivateRoute>
+          </AdminRoutes>
+        ),
       },
       {
         path: "serve-meals",
-        element: <ServeMeals />,
+        element: (
+          <AdminRoutes>
+            <PrivateRoute>
+              <ServeMeals />
+            </PrivateRoute>
+          </AdminRoutes>
+        ),
       },
       {
         path: "manage-upcoming-meals",
-        element: <UpcomingMealsManage />,
+        element: (
+          <AdminRoutes>
+            <PrivateRoute>
+              <UpcomingMealsManage />
+            </PrivateRoute>
+          </AdminRoutes>
+        ),
       },
       {
         path: "admin-profile",
-        element: <AdminProfile />,
+        element: (
+          <AdminRoutes>
+            <PrivateRoute>
+              <AdminProfile />
+            </PrivateRoute>
+          </AdminRoutes>
+        ),
       },
       {
         path: "my-reviews",
-        element: <MyReviews />,
+        element: (
+          <PrivateRoute>
+            <MyReviews />
+          </PrivateRoute>
+        ),
       },
       {
         path: "update-meal/:id",
-        element: <UpdatePage />,
+        element: (
+          <AdminRoutes>
+            <PrivateRoute>
+              <UpdatePage />
+            </PrivateRoute>
+          </AdminRoutes>
+        ),
       },
     ],
   },

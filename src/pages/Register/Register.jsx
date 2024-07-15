@@ -150,9 +150,17 @@ const Register = () => {
           <input type={ show ? 'text' : 'password' }
           placeholder="password"
           name="password"
-          {...register("password", { required: true})}
+          {...register("password", { required: true, minLength: 6,
+            pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
+          })}
           className="input input-bordered" />
           {errors.password && <span>This field is required</span>}
+                {errors.password?.type === "minLength" && (
+                  <span>Password must be 6 character</span>
+                )}
+                {errors.password?.type === "pattern" && (
+                  <span>Enter a Strong Password</span>
+                )}
           <label className="label">
             <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
           </label>

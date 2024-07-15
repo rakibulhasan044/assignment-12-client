@@ -1,9 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { useState } from "react";
+import LoadSpinner from "../../../../components/Spiner/LoadSpinner";
 
 const ServeMeals = () => {
   const axiosSecure = useAxiosSecure();
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   const {
     data: requestedMeals = [],
@@ -31,11 +35,20 @@ const ServeMeals = () => {
     }
   };
 
-  if (isLoading) return <p>Data Loading...</p>;
+  if (isLoading) return <LoadSpinner />;
+
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedMeals = requestedMeals.slice(startIndex, startIndex + itemsPerPage);
+
+
+  const totalPages = Math.ceil(requestedMeals.length / itemsPerPage);
+
   return (
-    <div className="overflow-x-auto">
+    <div className="w-full">
+      <h2 className="text-3xl py-5 text-warning font-bold text-center">Serve Meals</h2>
+      <div className="overflow-x-auto">
       <table className="table">
-        {/* head */}
         <thead>
           <tr>
             <th></th>
@@ -47,17 +60,17 @@ const ServeMeals = () => {
           </tr>
         </thead>
         <tbody>
-          {requestedMeals.map((item, index) => (
+          {paginatedMeals.map((item, index) => (
             <tr key={item._id}>
-              <th>{index + 1}</th>
+              <th>{startIndex + index + 1}</th>
               <td>{item.name}</td>
               <td>{item.userEmail}</td>
               <td>{item.userName}</td>
               <td
                 className={`
-            ${
-              item.status === "Pending" ? "text-yellow-500" : "text-green-500"
-            }`}
+              ${
+                item.status === "Pending" ? "text-yellow-500" : "text-green-500"
+              }`}
               >
                 {item.status}
               </td>
@@ -74,6 +87,20 @@ const ServeMeals = () => {
           ))}
         </tbody>
       </table>
+      <div className="flex justify-center mt-4">
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+          <button
+            key={page}
+            className={`btn btn-sm mx-1 ${
+              page === currentPage ? "btn-primary" : "btn-outline"
+            }`}
+            onClick={() => setCurrentPage(page)}
+          >
+            {page}
+          </button>
+        ))}
+      </div>
+    </div>
     </div>
   );
 };

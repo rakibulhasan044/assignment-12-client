@@ -27,7 +27,6 @@ const MyReviews = () => {
     queryKey: ["reviews"],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/review/${user.email}`);
-      console.log("API response:", data);
       return data;
     },
   });

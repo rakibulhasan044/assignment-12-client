@@ -3,11 +3,9 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import PackageDetalis from "./PackageDetalis";
 import LoadSpinner from "../../components/Spiner/LoadSpinner";
-import useAdmin from "../../hooks/useAdmin";
 
 const CheckOut = () => {
-  const [isAdmin] = useAdmin()
-  console.log(isAdmin);
+ 
     const { id } = useParams();
     const axiosPublic = useAxiosPublic();
   

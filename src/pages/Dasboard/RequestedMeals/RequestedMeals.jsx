@@ -34,6 +34,7 @@ const RequestedMeals = () => {
 
   return (
     <div className="w-full">
+      <h2 className="text-info text-2xl font-bold text-center py-5">My Requested Meals</h2>
       <div className="overflow-x-auto">
         <table className="table">
           <thead>

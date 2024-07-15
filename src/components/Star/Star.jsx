@@ -2,7 +2,6 @@
 import { FaStar, FaStarHalf } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 
-
 const Star = ({ rating }) => {
   const fullStars = Math.floor(rating);
   const halfStar = rating % 1 !== 0;
