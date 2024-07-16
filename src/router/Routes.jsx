@@ -23,11 +23,13 @@ import MyReviews from "../pages/Dasboard/MyReviews/MyReviews";
 import UpdatePage from "../pages/Dasboard/Admin/AllMeals/UpdatePage";
 import UpcomingMeals from "../pages/UpcomingMeals/UpcomingMeals";
 import AdminRoutes from "./AdminRoutes";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",

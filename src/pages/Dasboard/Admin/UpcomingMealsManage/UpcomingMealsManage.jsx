@@ -1,16 +1,26 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import AddMealModal from "../../../../components/Modal/AddMealModal";
 import useUpcomingMeals from "../../../../hooks/useUpcomingMeals";
 import LoadSpinner from "../../../../components/Spiner/LoadSpinner";
 import { Link } from "react-router-dom";
 import PublishedModal from "../../../../components/Modal/PublishedModal";
 
-const ParentComponent = () => {
+const UpcomingMealsMange = () => {
 
   const [meals, isLoading, refetch] = useUpcomingMeals();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [publishOpen, setIsPublishOpen] = useState(false);
   const [item, setItem] = useState(null)
+  const [page, setPage] = useState(1);
+  const itemPerPage = 10;
+
+  const totalMeals = meals.length;
+  const totalPages = Math.max(1, Math.ceil(totalMeals / itemPerPage))
+
+  const paginated = useMemo(() => {
+    const startIndex = (page -1) * itemPerPage;
+    return meals.slice(startIndex, startIndex + itemPerPage)
+  }, [meals, page])
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -21,8 +31,8 @@ const ParentComponent = () => {
   }
 
   return (
-    <div className="w-full">
-      <h2 className="text-2xl text-center font-semibold py-5">
+    <div className="w-full mt-5">
+      <h2 className="text-2xl text-center font-semibold">
         Manage All Upcoming meal
       </h2>
       <div className="flex justify-end py-3">
@@ -49,9 +59,9 @@ const ParentComponent = () => {
               </tr>
             </thead>
             <tbody>
-              {meals.map((meal, index) => (
+              {paginated.map((meal, index) => (
                 <tr className="hover" key={meal._id}>
-                  <th>{index + 1}</th>
+                  <th>{index + 1 + (page - 1) * itemPerPage}</th>
                   <td>{meal.title}</td>
                   <td>{meal.likes}</td>
                   <td>
@@ -65,6 +75,22 @@ const ParentComponent = () => {
               ))}
             </tbody>
           </table>
+          <div className="flex justify-center my-4 gap-4">
+          <button
+          className="btn btn-sm btn-outline btn-info ml-2"
+          onClick={() => setPage(prev => Math.max(prev - 1, 1))}
+          disabled={page === 1}>
+            Previous
+          </button>
+          <span className="mx-2">Page {page} of {totalPages}</span>
+          <button
+          className="btn btn-sm btn-outline btn-info ml-2"
+          onClick={() => setPage(prev => Math.min(prev + 1, totalPages))}
+          disabled={page === totalPages}>
+            Next
+          </button>
+          </div>
+          
         </div>
       )}
       {
@@ -80,4 +106,4 @@ const ParentComponent = () => {
   );
 };
 
-export default ParentComponent;
+export default UpcomingMealsMange;

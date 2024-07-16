@@ -50,7 +50,7 @@ const Dashboard = () => {
             </Link> */}
             <Link
               to="/dashboard/admin-profile"
-              className={`flex items-center py-2 mt-5 ${
+              className={`flex items-center py-2 mt-2 ${
                 isActive("/dashboard/settings")
                   ? "text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-gray-200"
                   : "text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
@@ -61,7 +61,7 @@ const Dashboard = () => {
 
             <Link
               to="/dashboard/add-meal"
-              className={`flex items-center py-2 mt-5 ${
+              className={`flex items-center py-2 mt-2  ${
                 isActive("/dashboard/tickets")
                   ? "text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-gray-200"
                   : "text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
@@ -72,7 +72,7 @@ const Dashboard = () => {
 
             <Link
               to="/dashboard/manage-users"
-              className={`flex items-center py-2 mt-5 ${
+              className={`flex items-center py-2 mt-2 ${
                 isActive("/dashboard/requested-meals")
                   ? "text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-gray-200"
                   : "text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
@@ -83,7 +83,7 @@ const Dashboard = () => {
 
             <Link
               to="/dashboard/all-meals"
-              className={`flex items-center py-2 mt-5 ${
+              className={`flex items-center py-2 mt-2 ${
                 isActive("/dashboard/settings")
                   ? "text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-gray-200"
                   : "text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
@@ -93,7 +93,7 @@ const Dashboard = () => {
             </Link>
             <Link
               to="/dashboard/all-reviews"
-              className={`flex items-center py-2 mt-5 ${
+              className={`flex items-center py-2 mt-2 ${
                 isActive("/dashboard/settings")
                   ? "text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-gray-200"
                   : "text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
@@ -103,7 +103,7 @@ const Dashboard = () => {
             </Link>
             <Link
               to="/dashboard/serve-meals"
-              className={`flex items-center py-2 mt-5 ${
+              className={`flex items-center py-2 mt-2 ${
                 isActive("/dashboard/settings")
                   ? "text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-gray-200"
                   : "text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
@@ -113,7 +113,7 @@ const Dashboard = () => {
             </Link>
             <Link
               to="/dashboard/manage-upcoming-meals"
-              className={`flex items-center py-2 mt-5 ${
+              className={`flex items-center py-2 mt-2 ${
                 isActive("/dashboard/settings")
                   ? "text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-gray-200"
                   : "text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
@@ -137,7 +137,7 @@ const Dashboard = () => {
 
             <Link
               to="/dashboard/profile"
-              className={`flex items-center py-2 mt-5 ${
+              className={`flex items-center py-2 mt-2 ${
                 isActive("/dashboard/tickets")
                   ? "text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-gray-200"
                   : "text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
@@ -148,7 +148,7 @@ const Dashboard = () => {
 
             <Link
               to="/dashboard/requested-meals"
-              className={`flex items-center py-2 mt-5 ${
+              className={`flex items-center py-2 mt-2 ${
                 isActive("/dashboard/requested-meals")
                   ? "text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-gray-200"
                   : "text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
@@ -158,7 +158,7 @@ const Dashboard = () => {
             </Link>
             <Link
               to="/dashboard/my-reviews"
-              className={`flex items-center py-2 mt-5 ${
+              className={`flex items-center py-2 mt-2 ${
                 isActive("/dashboard/settings")
                   ? "text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-gray-200"
                   : "text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
@@ -168,7 +168,7 @@ const Dashboard = () => {
             </Link>
             <Link
               to="/dashboard/payment"
-              className={`flex items-center py-2 mt-5 ${
+              className={`flex items-center py-2 mt-2 ${
                 isActive("/dashboard/settings")
                   ? "text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-gray-200"
                   : "text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
@@ -181,7 +181,7 @@ const Dashboard = () => {
         }
         <Link
               to="/"
-              className={`flex items-center py-2 mt-5 ${
+              className={`flex items-center py-2 mt-2 ${
                 isActive("/dashboard/settings")
                   ? "text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-gray-200"
                   : "text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"

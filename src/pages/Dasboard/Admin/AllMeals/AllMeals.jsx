@@ -9,12 +9,7 @@ import { Link } from "react-router-dom";
 
 const AllMeals = () => {
   const [page, setPage] = useState(1);
-  const [meals, totalMealsCount, isLoading, refetch] = useMeals(
-    page,
-    "",
-    "",
-    10
-  );
+  const [meals, totalMealsCount, isLoading, refetch] = useMeals(page, "", "", 10);
   const axiosSecure = useAxiosSecure();
 
   const totalPages = Math.ceil(totalMealsCount / 10);
@@ -95,7 +90,7 @@ const AllMeals = () => {
             ))}
           </tbody>
         </table>
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center my-4">
           <button
             className="btn btn-sm btn-outline btn-info mr-2"
             onClick={() => setPage((prev) => Math.max(prev - 1, 1))}

@@ -229,7 +229,7 @@ const MealDetails = () => {
       <Star rating={rating} />
       <span className="text-xl">({reviews_count})</span>
       </div>
-      <SpecificReviews id={id} />
+      <SpecificReviews id={id} refetch={refetch} />
       <h3 className="text-xl text-gray-400 py-2 font-medium">Give us your feedback here</h3>
       <form
       onSubmit={(e) => handleReview(e, id)}

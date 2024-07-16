@@ -45,8 +45,8 @@ const ServeMeals = () => {
   const totalPages = Math.ceil(requestedMeals.length / itemsPerPage);
 
   return (
-    <div className="w-full">
-      <h2 className="text-3xl py-5 text-warning font-bold text-center">Serve Meals</h2>
+    <div className="w-full mt-5">
+      <h2 className="text-3xl text-warning font-bold text-center">Serve Meals</h2>
       <div className="overflow-x-auto">
       <table className="table">
         <thead>
@@ -87,7 +87,7 @@ const ServeMeals = () => {
           ))}
         </tbody>
       </table>
-      <div className="flex justify-center mt-4">
+      <div className="flex justify-center my-4">
         {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
           <button
             key={page}

@@ -8,13 +8,21 @@ const ManageUsers = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [page, setPage] = useState(1);
+  const [searchEmail, setSearchEmail] = useState("");
+  const [searchName, setSearchName] = useState("");
+  const [searchParams, setSearchParams] = useState({ email: "", name: "" });
   const usersPerPage = 10;
   const axiosSecure = useAxiosSecure();
 
   const { data: users, isLoading, refetch } = useQuery({
-    queryKey: ["users"],
+    queryKey: ["users", searchParams],
     queryFn: async () => {
-      const { data } = await axiosSecure.get(`/users`);
+      const { data } = await axiosSecure.get(`/users`, {
+        params: {
+          email: searchParams.email,
+          name: searchParams.name,
+        },
+      });
       return data;
     },
   });
@@ -22,6 +30,12 @@ const ManageUsers = () => {
   const handleOpenModal = (user) => {
     setCurrentUser(user);
     setIsOpen(true);
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setSearchParams({ email: searchEmail, name: searchName });
+    refetch();
   };
 
   if (isLoading) return <LoadSpinner />;
@@ -32,8 +46,27 @@ const ManageUsers = () => {
   const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
 
   return (
-    <div className="w-full pt-5">
-      <h2 className="text-center text-green-500 text-xl font-semibold">Manage All user</h2>
+    <div className="w-full mt-5">
+      <h2 className="text-center text-green-500 text-xl font-semibold">Manage All Users</h2>
+
+      <form className="flex justify-center mb-4" onSubmit={handleSearch}>
+        <input
+          type="text"
+          placeholder="Search by email"
+          value={searchEmail}
+          onChange={(e) => setSearchEmail(e.target.value)}
+          className="input input-bordered input-sm mr-2"
+        />
+        <input
+          type="text"
+          placeholder="Search by name"
+          value={searchName}
+          onChange={(e) => setSearchName(e.target.value)}
+          className="input input-bordered input-sm mr-2"
+        />
+        <button type="submit" className="btn btn-sm btn-primary">Search</button>
+      </form>
+
       <div className="overflow-x-auto">
         <table className="table">
           <thead>
@@ -51,7 +84,7 @@ const ManageUsers = () => {
                 <th>{indexOfFirstUser + index + 1}</th>
                 <td>
                   <div className="flex items-center gap-3">
-                    <div className="avatar flex flex-col gap-2 items-center justify-center">
+                    <div className="avatar flex flex-col gap-2 justify-center">
                       <div className="mask mask-squircle h-12 w-12">
                         <img src={user.photo} alt={user.name} />
                       </div>
@@ -68,7 +101,7 @@ const ManageUsers = () => {
                       <span className="text-center">User</span>
                       <button
                         onClick={() => handleOpenModal(user)}
-                        className="btn-sm bg-purple-700 rounded-xl"
+                        className="btn-sm bg-purple-600 rounded-xl text-white"
                       >
                         Make admin
                       </button>
@@ -90,7 +123,7 @@ const ManageUsers = () => {
             ))}
           </tbody>
         </table>
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center my-4">
           <button
             className="btn btn-sm btn-outline btn-info mr-2"
             onClick={() => setPage(prev => Math.max(prev - 1, 1))}

@@ -138,7 +138,7 @@ const UpdatePage = () => {
             />
           </label>
         </div>
-        <button type="submit" className="btn bg-primary w-full mt-5">
+        <button type="submit" className="btn bg-green-500 w-full mt-5 text-white">
           Update
         </button>
       </form>

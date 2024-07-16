@@ -3,7 +3,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { useForm } from "react-hook-form";
 import moment from "moment";
-
+import PropTypes from 'prop-types';
 
 import Swal from "sweetalert2";
 import useAxiosSecure from '../../hooks/useAxiosSecure';
@@ -189,5 +189,11 @@ const AddMealModal = ({ isOpen, closeModal, refetch }) => {
     </Transition>
   );
 };
+
+AddMealModal.propTypes = {
+  isOpen: PropTypes.bool,
+  closeModal: PropTypes.func,
+  refetch: PropTypes.func,
+}
 
 export default AddMealModal;

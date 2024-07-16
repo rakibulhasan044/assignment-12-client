@@ -55,7 +55,7 @@ const PaymentPage = () => {
               </tbody>
             </table>
           </div>
-          <div className="flex justify-center mt-4">
+          <div className="flex justify-center my-4">
             <button
               className="btn btn-sm btn-outline btn-info mr-2"
               onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}

@@ -58,7 +58,7 @@ const Addmeal = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full py-5">
       <h2 className="py-5 text-xl font-semibold text-center text-purple-700">
         Add a New Item
       </h2>

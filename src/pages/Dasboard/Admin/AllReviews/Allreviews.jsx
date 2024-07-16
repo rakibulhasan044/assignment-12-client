@@ -97,7 +97,7 @@ const AllReviews = () => {
           </tbody>
         </table>
         
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center my-4">
           <button
             className="btn btn-sm btn-outline btn-info mr-2"
             onClick={() => setPage(prev => Math.max(prev - 1, 1))}
