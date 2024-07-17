@@ -2,12 +2,20 @@ import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useUserDetails from "../hooks/useUserDetails";
 import { useEffect } from "react";
+import useAxiosSecure from "../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 const Dashboard = () => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const [userInfo] = useUserDetails()
   const location = useLocation();
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
+
+  
+
+
+  console.log(userInfo);
 
   const isActive = (path) => location.pathname === path;
 

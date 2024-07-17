@@ -48,12 +48,12 @@ const MealDetails = () => {
   useEffect(() => {
     const checkIfLiked = async () => {
       if(user) {
-        const { data } = await axiosSecure.get(`/liked/${id}?email=${user.email}`)
+        const { data } = await axiosPublic.get(`/liked/${id}?email=${user.email}`)
         setSelected(data.liked)
       }
     }
     checkIfLiked()
-  },[id, user, axiosSecure])
+  },[id, user, axiosPublic])
 
   const handleRadioChange = async () => {
     if(user && userInfo.package !== 'Bronze') {
