@@ -1,4 +1,5 @@
 import Banner from "./Banner/Banner";
+import ExtraSection from "./ExtraSection/ExtraSection";
 import MealsCategory from "./MealsCategory/MealsCategory";
 import MembershipPackage from "./MembershipPackage/MembershipPackage";
 
@@ -9,6 +10,7 @@ const Home = () => {
             <Banner />
             <MealsCategory />
             <MembershipPackage />
+            <ExtraSection />
         </div>
     );
 };

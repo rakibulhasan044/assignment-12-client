@@ -7,16 +7,16 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import Star from "../Star/Star";
 import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const SpecificReviews = ({id}) => {
     
-const axiosSecure = useAxiosSecure();
+const axiosPublic = useAxiosPublic()
 
   const {data: reviews = []} = useQuery({
     queryKey: ['reviews', id],
     queryFn: async () => {
-        const {data} = await axiosSecure.get(`/reviews/${id}`)
+        const {data} = await axiosPublic.get(`/reviews/${id}`)
         return data
     }
   })

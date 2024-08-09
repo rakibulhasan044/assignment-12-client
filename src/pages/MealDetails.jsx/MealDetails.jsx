@@ -90,6 +90,15 @@ const MealDetails = () => {
   };
 
   const handleBtnClick = async () => {
+    if(!user) {
+      return Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "Please Login to Request Meal",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
     if(userInfo.package != 'Bronze' || meal.category === 'upcoming') {
       const requestedMealInfo = {
         name: meal.title,
@@ -139,6 +148,16 @@ const MealDetails = () => {
 
   const handleReview = async (e, id) => {
     e.preventDefault();
+
+    if(!user) {
+      return Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "Please Login to Review",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
 
     if(meal.category === 'upcoming') {
       return Swal.fire({
