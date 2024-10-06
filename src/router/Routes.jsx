@@ -24,6 +24,7 @@ import UpdatePage from "../pages/Dasboard/Admin/AllMeals/UpdatePage";
 import UpcomingMeals from "../pages/UpcomingMeals/UpcomingMeals";
 import AdminRoutes from "./AdminRoutes";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import Overview from "../pages/Dasboard/Admin/Overview/Overview"
 
 const router = createBrowserRouter([
   {
@@ -135,6 +136,16 @@ const router = createBrowserRouter([
           <AdminRoutes>
             <PrivateRoute>
               <AllMeals />
+            </PrivateRoute>
+          </AdminRoutes>
+        ),
+      },
+      {
+        path: "overview",
+        element: (
+          <AdminRoutes>
+            <PrivateRoute>
+              <Overview />
             </PrivateRoute>
           </AdminRoutes>
         ),

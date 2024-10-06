@@ -32,3 +32,6 @@ __5.Dynamic Navbar:__ The navbar features active routes, displaying the website 
 5.MongoDB
 6.express
 7.jwt
+
+# wave-2 extra funtionality
+As a extra funtinaly a overview page added on the admin dashboard. Now admin can see the talal users, orders & earning of the apps

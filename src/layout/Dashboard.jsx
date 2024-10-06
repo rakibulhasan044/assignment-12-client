@@ -22,7 +22,7 @@ const Dashboard = () => {
   useEffect(() => {
     if (location.pathname === "/dashboard") {
       if (userInfo.role === "admin") {
-        navigate("/dashboard/admin-profile");
+        navigate("/dashboard/overview");
       } else {
         navigate("/dashboard/profile");
       }
@@ -56,6 +56,16 @@ const Dashboard = () => {
             >
               <span className="mx-2 md:mx-4 font-medium">Admin Dashboard</span>
             </Link> */}
+            <Link
+              to="/dashboard/overview"
+              className={`flex items-center py-2 mt-2 ${
+                isActive("/dashboard/settings")
+                  ? "text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-gray-200"
+                  : "text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+              }`}
+            >
+              <span className="mx-2 md:mx-4 font-medium">Overview</span>
+            </Link>
             <Link
               to="/dashboard/admin-profile"
               className={`flex items-center py-2 mt-2 ${
